@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=docker-start irpf
+GenericName[en_US]=
+GenericName=
+Icon=gnumeric-format-accounting
+MimeType=
+Name[en_US]=IRPF 2020
+Name=IRPF 2020
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

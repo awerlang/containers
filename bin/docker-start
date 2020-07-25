@@ -1,0 +1,38 @@
+#!/bin/bash
+
+start() {
+    [[ -n "$1" ]] && cd $(readlink -f $(dirname $0)/..)/${1} || exit 1
+
+    systemctl status docker >/dev/null || {
+        echo Docker must be running. >&2
+        exit 1
+    }
+
+    local name=$(make name)
+    create_as_needed ${name} && make run && docker start -a ${name} >/dev/null
+} 2>&1 >/dev/null
+
+is_image() {
+    local name=$1
+    docker images --quiet --no-trunc $name | grep . &>/dev/null
+}
+
+is_container() {
+    local name=$1
+    docker ps --all --format '{{.Names}}' | fgrep -w $name &>/dev/null
+}
+
+create_as_needed() {
+    if ! is_container $1; then
+        if ! is_image awerlang/$1; then
+            make >/dev/null
+        fi
+        echo 'Creating container' | grep --color=always .
+        make create >/dev/null
+    fi
+}
+
+result=$(start "$1")
+if [[ $? -ne 0 ]]; then
+    notify-send "$1" "$result"
+fi

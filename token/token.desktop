@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=docker-start token
+GenericName[en_US]=
+GenericName=
+Icon=view-certificate-sign
+MimeType=
+Name[en_US]=Smart Token
+Name=Smart Token
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

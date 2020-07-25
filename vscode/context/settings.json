@@ -1,0 +1,19 @@
+{
+    "editor.cursorBlinking": "phase",
+    "editor.formatOnPaste": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    "files.trimFinalNewlines": true,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "timeline.excludeSources": [],
+    "update.mode": "none",
+    "window.menuBarVisibility": "toggle",
+    "window.zoomLevel": 0,
+    "workbench.enableExperiments": false,
+    "workbench.settings.enableNaturalLanguageSearch": false
+}

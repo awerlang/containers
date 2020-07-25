@@ -1,0 +1,27 @@
+#!/bin/bash
+
+IMAGE=$1
+CONTEXT=${2-.}
+DATE=$(date +%Y%m%d)
+
+network() {
+    docker network inspect local_proxy && return
+    docker network create -d bridge --label=persistent local_proxy
+} >/dev/null
+
+service() {
+    docker container inspect local_proxy && return
+    docker run --rm -d --name local_proxy --net=local_proxy awerlang/http-proxy
+} >/dev/null
+
+build() {
+    docker build --build-arg=LOCAL_UID="$(id -u)" \
+                 --build-arg=LOCAL_GID="$(id -g)" \
+                 --build-arg=http_proxy=http://local_proxy:8080 \
+                 --network=local_proxy \
+                 -t awerlang/${IMAGE} \
+                 -t awerlang/${IMAGE}:${DATE} \
+                 $CONTEXT
+}
+
+network && service && build
