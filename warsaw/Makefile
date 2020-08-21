@@ -21,12 +21,12 @@ create:
 					--cap-add SETGID \
 					--cap-add AUDIT_WRITE \
 					--cap-add DAC_OVERRIDE \
+					--cap-add CHOWN \
 					--security-opt no-new-privileges \
 					--shm-size 2g \
-					--tmpfs /run/user/${uid}:uid=${uid},gid=${gid},mode=700 \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
-					--env "DISPLAY" \
+					--env "DISPLAY=${DISPLAY}" \
 					--env "LANG=pt_BR.UTF-8" \
 					--init \
 					${IMAGE} >/dev/null

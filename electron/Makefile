@@ -26,7 +26,7 @@ create:
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/run/user/${uid}/pulse:/run/user/${uid}/pulse:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
-					--env "DISPLAY" \
+					--env "DISPLAY=${DISPLAY}" \
 					--env "LANG=pt_BR.UTF-8" \
 					--init \
 					${IMAGE} >/dev/null

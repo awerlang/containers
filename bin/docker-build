@@ -4,24 +4,19 @@ IMAGE=$1
 CONTEXT=${2-.}
 DATE=$(date +%Y%m%d)
 
-network() {
-    docker network inspect local_proxy && return
-    docker network create -d bridge --label=persistent local_proxy
-} >/dev/null
-
-service() {
+proxy() {
     docker container inspect local_proxy && return
-    docker run --rm -d --name local_proxy --net=local_proxy awerlang/http-proxy
+    docker run --rm -d --name local_proxy awerlang/http-proxy
 } >/dev/null
 
 build() {
+    local ip_address=$(docker inspect -f "{{.NetworkSettings.IPAddress}}" local_proxy)
     docker build --build-arg=LOCAL_UID="$(id -u)" \
                  --build-arg=LOCAL_GID="$(id -g)" \
-                 --build-arg=http_proxy=http://local_proxy:8080 \
-                 --network=local_proxy \
+                 --build-arg=http_proxy=http://${ip_address}:8080 \
                  -t awerlang/${IMAGE} \
                  -t awerlang/${IMAGE}:${DATE} \
                  $CONTEXT
 }
 
-network && service && build
+proxy && build

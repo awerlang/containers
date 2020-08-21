@@ -22,7 +22,7 @@ create:
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--volume=${HOME}/Documents/IRPF/ProgramasRFB:/home/user/ProgramasRFB \
-					--env "DISPLAY" \
+					--env "DISPLAY=${DISPLAY}" \
 					${IMAGE} >/dev/null
 
 .PHONY: run

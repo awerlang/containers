@@ -19,13 +19,13 @@ create:
 					--cap-drop ALL \
 					--cap-add SETUID \
 					--cap-add SETGID \
+					--cap-add CHOWN \
 					--shm-size 2g \
 					--device=/dev/bus/usb \
 					--tmpfs /run \
-					--tmpfs /home/user/.cache:uid=${uid},gid=${gid} \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
-					--env "DISPLAY" \
+					--env "DISPLAY=${DISPLAY}" \
 					--env "LANG=pt_BR.UTF-8" \
 					--env "LANGUAGE=pt_BR:en_US:en" \
 					--init \

@@ -3,11 +3,6 @@
 start() {
     [[ -n "$1" ]] && cd $(readlink -f $(dirname $0)/..)/${1} || exit 1
 
-    systemctl status docker >/dev/null || {
-        echo Docker must be running. >&2
-        exit 1
-    }
-
     local name=$(make name)
     create_as_needed ${name} && make run && docker start -a ${name} >/dev/null
 } 2>&1 >/dev/null
