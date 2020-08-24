@@ -1,10 +1,3 @@
-FROM awerlang/buildpack-deps as builder
-
-RUN curl -fsSL -o microsoft.asc https://packages.microsoft.com/keys/microsoft.asc
-
-ADD https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init /tmp/rustup-init
-RUN chmod +xr /tmp/rustup-init
-
 FROM awerlang/gui
 
 # Supporting GUI libraries
@@ -32,7 +25,7 @@ RUN zypper --non-interactive in \
 RUN zypper --non-interactive in chromium
 
 # VS Code
-COPY --from=builder microsoft.asc .
+ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
 RUN rpm --import microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo && \
     zypper modifyrepo --keep-packages code && \
@@ -41,8 +34,9 @@ RUN rpm --import microsoft.asc && \
 USER user
 
 # Rust
-COPY --from=builder /tmp/rustup-init /tmp/rustup-init
-RUN /tmp/rustup-init -y && \
+ADD https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init /tmp/rustup-init
+RUN chmod +xr /tmp/rustup-init && \
+    /tmp/rustup-init -y && \
     mkdir /tmp/cargo/
 
 COPY *.sh /usr/local/bin/
