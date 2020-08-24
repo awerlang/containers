@@ -17,31 +17,26 @@ RUN zypper --non-interactive in \
         libsoftokn3 \
         libX11-xcb1 \
         libxkbfile1 \
-        libXss1 && \
-    zypper clean --all
+        libXss1
 
 # Development tools
-RUN zypper --non-interactive in gcc git-core make nodejs12 && \
-    zypper clean --all
+RUN zypper --non-interactive in gcc git-core make nodejs12
 
 RUN zypper --non-interactive in \
         alsa-devel \
         dbus-1-devel \
         libopenssl-devel \
-        libpulse-devel && \
-    zypper clean --all
+        libpulse-devel
 
 # Chromium
-RUN zypper --non-interactive in \
-    chromium && \
-    zypper clean --all
+RUN zypper --non-interactive in chromium
 
 # VS Code
 COPY --from=builder microsoft.asc .
 RUN rpm --import microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo && \
-    zypper --non-interactive in code && \
-    zypper clean --all
+    zypper modifyrepo --keep-packages code && \
+    zypper --non-interactive in code
 
 USER user
 

@@ -11,8 +11,7 @@ RUN zypper --non-interactive in \
         icedtea-web java-1_8_0-openjdk \
         opensc pcsc-ccid pcsc-lite pcsc-tools \
         polkit-default-privs \
-        xdg-utils && \
-    zypper clean --all
+        xdg-utils
 
 COPY --from=builder /tmp /tmp
 RUN rpm --import /tmp/RPM-GPG-KEY-SafenetAuthenticationClient && \

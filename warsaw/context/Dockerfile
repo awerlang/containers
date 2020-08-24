@@ -5,8 +5,7 @@ RUN curl -fsSL -o /tmp/warsaw_setup.rpm https://cloud.gastecnologia.com.br/bb/do
 
 FROM awerlang/firefox
 
-RUN zypper --non-interactive in python3 zenity && \
-    zypper clean --all
+RUN zypper --non-interactive in python3 zenity
 
 COPY --from=builder /tmp/warsaw_setup.rpm /tmp/warsaw_setup.rpm
 RUN rpm -hi --nosignature /tmp/warsaw_setup.rpm

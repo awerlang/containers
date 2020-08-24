@@ -4,19 +4,18 @@ IMAGE=$1
 CONTEXT=${2-.}
 DATE=$(date +%Y%m%d)
 
-proxy() {
-    docker container inspect local_proxy && return
-    docker run --rm -d --name local_proxy awerlang/http-proxy
-} >/dev/null
-
 build() {
-    local ip_address=$(docker inspect -f "{{.NetworkSettings.IPAddress}}" local_proxy)
-    docker build --build-arg=LOCAL_UID="$(id -u)" \
-                 --build-arg=LOCAL_GID="$(id -g)" \
-                 --build-arg=http_proxy=http://${ip_address}:8080 \
-                 -t awerlang/${IMAGE} \
-                 -t awerlang/${IMAGE}:${DATE} \
-                 $CONTEXT
+    mkdir -p $HOME/.cache/podman/leap/metadata/{raw,solv}
+    mkdir -p $HOME/.cache/podman/leap/${IMAGE}
+    buildah bud --layers \
+                --build-arg=LOCAL_UID="$(id -u)" \
+                --build-arg=LOCAL_GID="$(id -g)" \
+                --volume $HOME/.cache/podman/leap/metadata/raw:/var/cache/zypp/raw:O \
+                --volume $HOME/.cache/podman/leap/metadata/solv:/var/cache/zypp/solv:O \
+                --volume $HOME/.cache/podman/leap/${IMAGE}:/var/cache/zypp/packages \
+                -t awerlang/${IMAGE} \
+                -t awerlang/${IMAGE}:${DATE} \
+                $CONTEXT
 }
 
-proxy && build
+build

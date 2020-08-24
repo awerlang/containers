@@ -31,8 +31,7 @@ RUN zypper --non-interactive in \
         libXrandr2 \
         libXss1 \
         libXtst6 \
-        mozilla-nss && \
-    zypper clean --all
+        mozilla-nss
 
 COPY --from=builder /etc/pulse/client.conf /etc/pulse/client.conf
 COPY --from=builder --chown=user:users /opt /home/user/electron/

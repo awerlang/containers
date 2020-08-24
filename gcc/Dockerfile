@@ -6,5 +6,4 @@ RUN zypper --non-interactive in \
         gcc \
         libopenssl-devel \
         libpulse-devel \
-        make && \
-    zypper clean --all
+        make

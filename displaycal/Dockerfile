@@ -1,7 +1,6 @@
 FROM awerlang/gui
 
-RUN zypper --non-interactive in python2 DisplayCAL && \
-    zypper clean --all
+RUN zypper --non-interactive in DisplayCAL
 
 USER user
 WORKDIR /home/user

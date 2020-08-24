@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # stopped containers
-for container in $(docker container list --all --quiet); do
-    keep=$(docker container list --all --quiet --filter label=persistent --filter id=${container})
+for container in $(podman container list --all --quiet); do
+    keep=$(podman container list --all --quiet --filter label=persistent --filter id=${container})
     if [[ -z ${keep} ]]; then
-        docker rm "${container}";
+        podman rm "${container}";
     fi
 done
 
 # old tagged images
-for image in $(docker images --format "{{.Repository}}" --filter reference="awerlang/*" | sort -u); do
-    for tag in $(docker images --format '{{.Tag}}' "$image" | awk '$1~/latest/ {next} get == 1 { print $1 } get != 1 { get=1 }'); do
-        docker rmi --no-prune "$image:$tag";
+for image in $(podman images --format "{{.Repository}}" --filter reference="awerlang/*" | sort -u); do
+    for tag in $(podman images --format '{{.Tag}}' "$image" | awk '$1~/latest/ {next} get == 1 { print $1 } get != 1 { get=1 }'); do
+        podman rmi "$image:$tag";
     done
 done
 
 # dangling images
-echo y | docker image prune
+buildah rmi --prune
 
-echo y | docker volume prune
+echo y | podman volume prune

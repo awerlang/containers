@@ -6,7 +6,6 @@ SUBDIRS = buildpack-deps \
 		  irpf \
 		  jdk8 \
 		  opensuse \
-		  proxy \
 		  rust \
 		  token \
 		  vscode \
@@ -25,7 +24,6 @@ gcc: 			opensuse
 gui: 			opensuse
 irpf: 			buildpack-deps jdk8
 jdk8: 			gui
-opensuse:		proxy
 rust: 			gcc
 token: 			buildpack-deps firefox
 vscode:			buildpack-deps gui

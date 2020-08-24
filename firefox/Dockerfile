@@ -1,6 +1,5 @@
 FROM awerlang/gui
 
-RUN zypper --non-interactive in MozillaFirefox && \
-    zypper clean --all
+RUN zypper --non-interactive in MozillaFirefox
 
 ENTRYPOINT /usr/bin/firefox
