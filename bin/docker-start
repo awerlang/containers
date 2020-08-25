@@ -4,17 +4,17 @@ start() {
     [[ -n "$1" ]] && cd $(readlink -f $(dirname $0)/..)/${1} || exit 1
 
     local name=$(make name)
-    create_as_needed ${name} && make run && docker start -a ${name} >/dev/null
-} 2>&1 >/dev/null
+    create_as_needed ${name} && make run && docker start -a ${name}
+}
 
 is_image() {
     local name=$1
-    docker images --quiet --no-trunc $name | grep . &>/dev/null
+    docker images --quiet --no-trunc $name | grep .
 }
 
 is_container() {
     local name=$1
-    docker ps --all --format '{{.Names}}' | fgrep -w $name &>/dev/null
+    docker ps --all --format '{{.Names}}' | fgrep -w $name
 }
 
 create_as_needed() {
