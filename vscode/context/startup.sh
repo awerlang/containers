@@ -18,4 +18,4 @@ if [[ ! -f $HOME/.config/Code/User/settings.json ]]; then
     mv $HOME/settings.json $HOME/.config/Code/User/
 fi
 
-dbus-launch /usr/share/code/code --verbose --disable-telemetry --no-sandbox --disable-gpu
+dbus-launch /usr/share/code/code --verbose --disable-telemetry --no-sandbox --disable-gpu --no-xshm
