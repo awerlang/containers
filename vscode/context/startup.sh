@@ -1,4 +1,9 @@
-export PATH=$HOME/bin:$HOME/.cargo/bin:$PATH
+if [[ ! -d ~/.npm-global ]]; then
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+fi
+
+export PATH=$HOME/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$PATH
 export CARGO_TARGET_DIR=/tmp/cargo/target
 export XAUTHORITY=/tmp/.Xauthority
 export BROWSER=web

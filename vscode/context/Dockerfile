@@ -13,7 +13,7 @@ RUN zypper --non-interactive in \
         libXss1
 
 # Development tools
-RUN zypper --non-interactive in gcc git-core make nodejs12
+RUN zypper --non-interactive in gcc git-core make nodejs12 npm12
 
 RUN zypper --non-interactive in \
         alsa-devel \
