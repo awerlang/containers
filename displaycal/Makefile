@@ -1,7 +1,17 @@
+NAME := displaycal
+IMAGE := awerlang/${NAME}
+
 .PHONY: build
 build:
 	@echo '> Building the image' | grep --color=always .
-	docker-build displaycal
+	docker-build ${NAME}
+
+.PHONY: name
+name:
+	@echo ${NAME}
+
+.PHONY: create
+create:
 
 .PHONY: run
 run:
@@ -11,4 +21,4 @@ run:
 				--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 				--volume=${XAUTHORITY}:/home/user/.Xauthority:ro \
 				--env "XAUTHORITY=/home/user/.Xauthority" \
-				awerlang/displaycal
+				${IMAGE}
