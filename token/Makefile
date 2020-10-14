@@ -20,6 +20,7 @@ create:
 					--cap-add SETUID \
 					--cap-add SETGID \
 					--cap-add CHOWN \
+					--security-opt no-new-privileges \
 					--shm-size 2g \
 					--device=/dev/bus/usb \
 					--tmpfs /run \
