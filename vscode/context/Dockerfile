@@ -31,12 +31,13 @@ RUN rpm --import microsoft.asc && \
     zypper modifyrepo --keep-packages code && \
     zypper --non-interactive in code
 
+# Rust
+ADD --chown=user:users https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init /tmp/rustup-init
+RUN chmod +xr /tmp/rustup-init
+
 USER user
 
-# Rust
-ADD https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init /tmp/rustup-init
-RUN chmod +xr /tmp/rustup-init && \
-    /tmp/rustup-init -y && \
+RUN /tmp/rustup-init -y && \
     mkdir /tmp/cargo/
 
 COPY *.sh /usr/local/bin/
