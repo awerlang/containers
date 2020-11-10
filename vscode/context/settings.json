@@ -1,12 +1,18 @@
 {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
     "editor.cursorBlinking": "phase",
     "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "extensions.showRecommendationsOnlyOnDemand": true,
     "files.trimFinalNewlines": true,
+    "git.enableSmartCommit": true,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "terminal.integrated.shell.linux": "/bin/bash",

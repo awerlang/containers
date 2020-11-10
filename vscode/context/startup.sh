@@ -12,7 +12,8 @@ if [[ ! -f $HOME/.config/Code/User/settings.json ]]; then
     code --install-extension ms-azuretools.vscode-docker \
          --install-extension rust-lang.rust \
          --install-extension dbaeumer.vscode-eslint \
-         --install-extension esbenp.prettier-vscode \
+         --install-extension bradlc.vscode-tailwindcss \
+         --install-extension octref.vetur \
          --install-extension vadimcn.vscode-lldb
 
     mv $HOME/settings.json $HOME/.config/Code/User/
