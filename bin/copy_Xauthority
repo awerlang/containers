@@ -3,7 +3,7 @@ set -u
 
 trusted() {
     local name=$1
-    docker cp $XAUTHORITY $name:/tmp/.Xauthority
+    podman cp $XAUTHORITY $name:/tmp/.Xauthority
 }
 
 untrusted() {
@@ -13,7 +13,7 @@ untrusted() {
     xauth -f ${tmp1} generate $DISPLAY . untrusted timeout 0
     xauth -f ${tmp1} nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${tmp2} nmerge -
 
-    docker cp ${tmp2} $name:/tmp/.Xauthority
+    podman cp ${tmp2} $name:/tmp/.Xauthority
     rm ${tmp1} ${tmp2}
 }
 

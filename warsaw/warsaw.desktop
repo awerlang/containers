@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=docker-start warsaw
+Exec=container-start warsaw
 GenericName[en_US]=
 GenericName=
 Icon=homebank

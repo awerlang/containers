@@ -10,7 +10,7 @@ name:
 
 .PHONY: create
 create:
-	@docker create --name=${NAME} \
+	@podman create --name=${NAME} \
 					--label=persistent \
 					--publish 5432:80 \
 					--env 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
@@ -22,4 +22,4 @@ run:
 
 .PHONY: clean
 clean:
-	docker rm ${NAME}
+	podman rm ${NAME}

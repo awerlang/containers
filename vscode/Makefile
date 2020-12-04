@@ -6,7 +6,7 @@ gid := $(shell id -g)
 .PHONY: build
 build:
 	@echo '> Building the image' | grep --color=always .
-	docker-build ${NAME} ./context
+	container-build ${NAME} ./context
 
 .PHONY: name
 name:
@@ -14,7 +14,7 @@ name:
 
 .PHONY: create
 create:
-	docker create --name=${NAME} \
+	podman create --name=${NAME} \
 					--label=persistent \
 					--cap-drop ALL \
 					--security-opt no-new-privileges \
@@ -33,8 +33,8 @@ create:
 .PHONY: run
 run:
 	@copy_Xauthority trusted ${NAME}
-	docker cp ~/.config/git vscode:/home/user/.config/
+	podman cp ~/.config/git vscode:/home/user/.config/
 
 .PHONY: clean
 clean:
-	docker rm ${NAME}
+	podman rm ${NAME}

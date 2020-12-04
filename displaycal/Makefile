@@ -4,7 +4,7 @@ IMAGE := awerlang/${NAME}
 .PHONY: build
 build:
 	@echo '> Building the image' | grep --color=always .
-	docker-build ${NAME}
+	container-build ${NAME}
 
 .PHONY: name
 name:
@@ -15,7 +15,7 @@ create:
 
 .PHONY: run
 run:
-	@docker run --rm \
+	@podman run --rm \
 				--userns=keep-id \
 				--env "DISPLAY=${DISPLAY}" \
 				--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \

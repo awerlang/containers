@@ -6,7 +6,7 @@ gid := $(shell id -g)
 .PHONY: build
 build:
 	@echo '> Building the image' | grep --color=always .
-	docker-build ${NAME} ./context
+	container-build ${NAME} ./context
 
 .PHONY: name
 name:
@@ -14,7 +14,7 @@ name:
 
 .PHONY: create
 create:
-	@docker create --name=${NAME} \
+	@podman create --name=${NAME} \
 					--label=persistent \
 					--cap-drop ALL \
 					--cap-add SETUID \
@@ -37,4 +37,4 @@ run:
 
 .PHONY: clean
 clean:
-	docker rm ${NAME}
+	podman rm ${NAME}

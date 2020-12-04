@@ -2,15 +2,15 @@
 
 is_container() {
     local name=$1
-    docker ps --all --format '{{.Names}}' | fgrep -w $name &>/dev/null
+    podman ps --all --format '{{.Names}}' | fgrep -w $name &>/dev/null
 }
 
 if ! is_container rust; then
-    docker create --name rust \
+    podman create --name rust \
                   --label=persistent \
                   -v /etc/localtime:/etc/localtime:ro \
                   -v /tmp/cargo \
                   awerlang/rust
 fi
 
-docker run -it --rm --volumes-from=rust -v $(pwd):/src awerlang/rust "$@"
+podman run -it --rm --volumes-from=rust -v $(pwd):/src awerlang/rust "$@"

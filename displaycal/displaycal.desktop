@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=docker-start displaycal
+Exec=container-start displaycal
 GenericName[en_US]=
 GenericName=
 Icon=preferences-desktop-display-color

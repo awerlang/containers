@@ -5,7 +5,7 @@ IMAGE := awerlang/${NAME}
 .PHONY: build
 build:
 	@echo '> Building the image' | grep --color=always .
-	docker-build ${NAME} ${YEAR}
+	container-build ${NAME} ${YEAR}
 
 .PHONY: name
 name:
@@ -15,7 +15,7 @@ name:
 create:
 	@mkdir -p ${HOME}/Documents/IRPF/ProgramasRFB
 
-	@docker create --name=${NAME} \
+	@podman create --name=${NAME} \
 					--label=persistent \
 					--cap-drop ALL \
 					--security-opt no-new-privileges \
@@ -32,4 +32,4 @@ run:
 
 .PHONY: clean
 clean:
-	docker rm $$(docker ps --all --format '{{.Names}}' | grep -w irpf)
+	podman rm $$(podman ps --all --format '{{.Names}}' | grep -w irpf)
