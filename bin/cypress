@@ -1,0 +1,3 @@
+#!/bin/bash
+
+podman --rm --net=host -v $(pwd):/app -w /app cypress/included:6.4.0
