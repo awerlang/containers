@@ -13,16 +13,7 @@ RUN zypper --non-interactive in \
         libXss1
 
 # Development tools
-RUN zypper --non-interactive in gcc git-core make nodejs12 npm12
-
-RUN zypper --non-interactive in \
-        alsa-devel \
-        dbus-1-devel \
-        libopenssl-devel \
-        libpulse-devel
-
-# Chromium
-RUN zypper --non-interactive in chromium
+RUN zypper --non-interactive in bash-completion chromium git-core make nodejs npm
 
 # VS Code
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
@@ -31,19 +22,28 @@ RUN rpm --import microsoft.asc && \
     zypper modifyrepo --keep-packages code && \
     zypper --non-interactive in code
 
-# Rust
-ADD --chown=user:users https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init /tmp/rustup-init
-RUN chmod +xr /tmp/rustup-init
-
 USER user
 
-RUN /tmp/rustup-init -y && \
-    mkdir /tmp/cargo/
+# VS Code
+RUN code --install-extension ms-azuretools.vscode-docker \
+    --install-extension dbaeumer.vscode-eslint
+COPY --chown=user:users settings.json /home/user/.config/Code/User/
 
-COPY *.sh /usr/local/bin/
-RUN cp /usr/local/bin/web.sh /home/user/bin/web && \
-    chmod +x /home/user/bin/web
-COPY --chown=user:users settings.json /home/user
+# npm / yarn
+RUN mkdir ~/.npm-global && \
+    npm config set prefix '~/.npm-global' && \
+    npm install -g yarn
 
-ENTRYPOINT ["/bin/bash"]
-CMD ["/usr/local/bin/startup.sh"]
+# Browser
+COPY web /usr/local/bin/
+ENV BROWSER=web
+
+ENV PATH=~/.npm-global/bin:$PATH
+ENV XAUTHORITY=/tmp/.Xauthority
+
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+
+ENTRYPOINT ["/usr/bin/dbus-run-session"]
+CMD ["code", "--verbose", "--disable-telemetry", "--no-sandbox", "--disable-gpu", "--no-xshm", "--disable-dev-shm-usage", "--disable-features=VizDisplayCompositor"]

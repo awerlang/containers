@@ -22,6 +22,7 @@ create:
 					--tmpfs /run \
 					--userns=keep-id \
 					--volume=${HOME}/src:/src \
+				    --volume=${HOME}/.ssh:/home/user/.ssh \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--env "DISPLAY=${DISPLAY}" \
@@ -33,7 +34,7 @@ create:
 .PHONY: run
 run:
 	@copy_Xauthority trusted ${NAME}
-	podman cp ~/.config/git vscode:/home/user/.config/
+	podman cp ~/.config/git ${NAME}:/home/user/.config/
 
 .PHONY: clean
 clean:
