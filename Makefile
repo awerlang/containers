@@ -5,6 +5,7 @@ SUBDIRS = buildpack-deps \
 		  gui \
 		  irpf \
 		  jdk8 \
+		  jdk11 \
 		  opensuse \
 		  rust \
 		  token \
@@ -22,8 +23,9 @@ displaycal:		gui
 firefox: 		gui
 gcc: 			opensuse
 gui: 			opensuse
-irpf: 			buildpack-deps jdk8
+irpf: 			buildpack-deps jdk11
 jdk8: 			gui
+jdk11: 			gui
 rust: 			gcc
 token: 			buildpack-deps firefox
 vscode:			buildpack-deps gui
