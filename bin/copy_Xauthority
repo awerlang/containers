@@ -1,20 +1,17 @@
 #!/bin/bash
 set -u
 
-trusted() {
-    local name=$1
-    podman cp $XAUTHORITY $name:/tmp/.Xauthority
-}
-
-untrusted() {
-    local name=$1
+copy() {
+    local untrusted=$1
+    local name=$2
     tmp1=$(mktemp)
     tmp2=$(mktemp)
-    xauth -f ${tmp1} generate $DISPLAY . untrusted timeout 0
-    xauth -f ${tmp1} nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${tmp2} nmerge -
+    xauth -f "${tmp1}" generate "$DISPLAY" . "$untrusted" timeout 0
+    xauth -f "${tmp1}" nlist "$DISPLAY" | sed -e 's/^..../ffff/' | xauth -f "${tmp2}" nmerge -
 
-    podman cp ${tmp2} $name:/tmp/.Xauthority
-    rm ${tmp1} ${tmp2}
+    chmod +r "${tmp2}"
+    podman cp "${tmp2}" "$name":/tmp/.Xauthority
+    rm "${tmp1}" "${tmp2}"
 }
 
-"$1" "$2"
+copy "$1" "$2"
