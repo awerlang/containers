@@ -20,6 +20,7 @@ create:
 					--shm-size 2g \
 					--tmpfs /run \
 					--userns=keep-id \
+					--volume=${HOME}/src:/src \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--env "DISPLAY=${DISPLAY}" \
