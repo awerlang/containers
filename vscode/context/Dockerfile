@@ -32,7 +32,11 @@ USER user
 
 # VS Code
 RUN code --install-extension ms-azuretools.vscode-docker \
-    --install-extension dbaeumer.vscode-eslint
+    --install-extension dbaeumer.vscode-eslint \
+    --install-extension eamodio.gitlens \
+    --install-extension humao.rest-client \
+    --install-extension alefragnani.bookmarks \
+    --install-extension hashicorp.terraform
 COPY --chown=user:users settings.json /home/user/.config/Code/User/
 
 # npm / yarn
