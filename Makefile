@@ -8,6 +8,7 @@ SUBDIRS = azure \
 		  jdk8 \
 		  jdk11 \
 		  opensuse \
+		  pgadmin \
 		  rust \
 		  token \
 		  vscode \
