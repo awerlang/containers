@@ -1,4 +1,5 @@
-SUBDIRS = buildpack-deps \
+SUBDIRS = azure \
+		  buildpack-deps \
 		  displaycal \
 		  firefox \
 		  gcc \
@@ -18,6 +19,7 @@ build: $(SUBDIRS)
 $(SUBDIRS):
 	$(MAKE) -C $@
 
+azure:			buildpack-deps gui
 buildpack-deps:	opensuse
 displaycal:		gui
 firefox: 		gui

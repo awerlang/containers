@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=container-start azure
+GenericName[en_US]=
+GenericName=
+Icon=server-database
+MimeType=
+Name[en_US]=Azure Data Studio
+Name=Azure Data Studio
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
