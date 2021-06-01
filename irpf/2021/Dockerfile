@@ -1,6 +1,6 @@
 FROM awerlang/buildpack-deps as builder
 
-RUN curl -fsSL -o /tmp/irpf.zip https://downloadirpf.receita.fazenda.gov.br/irpf/2021/irpf/arquivos/IRPF2021-1.2.zip && \
+RUN curl -fsSL -o /tmp/irpf.zip https://downloadirpf.receita.fazenda.gov.br/irpf/2021/irpf/arquivos/IRPF2021-1.6.zip && \
     unzip -d /opt /tmp/irpf.zip
 
 FROM awerlang/jdk11
