@@ -1,7 +1,7 @@
 SUBDIRS = azure \
 		  buildpack-deps \
+		  browsers \
 		  displaycal \
-		  firefox \
 		  gcc \
 		  gui \
 		  irpf \
@@ -22,14 +22,14 @@ $(SUBDIRS):
 
 azure:			buildpack-deps gui
 buildpack-deps:	opensuse
+browsers:		gui
 displaycal:		gui
-firefox: 		gui
 gcc: 			opensuse
 gui: 			opensuse
 irpf: 			buildpack-deps jdk11
 jdk8: 			gui
 jdk11: 			gui
 rust: 			gcc
-token: 			buildpack-deps firefox
-vscode:			buildpack-deps gui
-warsaw:			buildpack-deps firefox
+token: 			buildpack-deps browsers
+vscode:			buildpack-deps browsers
+warsaw:			buildpack-deps browsers

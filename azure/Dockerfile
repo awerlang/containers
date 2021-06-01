@@ -4,33 +4,6 @@ RUN curl -fsSL -o /tmp/azuredatastudio-linux.rpm https://sqlopsbuilds.azureedge.
 
 FROM awerlang/gui
 
-RUN zypper --non-interactive in \
-    libasound2 \
-    libatk-1_0-0 \
-    libcups2 \
-    libdrm2 \
-    libgbm1 \
-    libgtk-2_0-0 \
-    libgio-2_0-0 \
-    libgobject-2_0-0 \
-    libgtk-3-0 \
-    libpango-1_0-0 \
-    libsecret-1-0 \
-    libX11-6 \
-    libX11-xcb1 \
-    libxcb-dri3-0 \
-    libXcomposite1 \
-    libXcursor1 \
-    libXdamage1 \
-    libXext6 \
-    libXi6 \
-    libxkbfile1 \
-    libXrandr2 \
-    libXss1 \
-    libXtst6 \
-    mozilla-nspr \
-    mozilla-nss
-
 RUN zypper --non-interactive in icu
 
 COPY --from=builder /tmp /tmp

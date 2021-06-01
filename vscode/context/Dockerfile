@@ -4,22 +4,10 @@ RUN curl -fsSL -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.
     sha256sum --check --status - <<<'6b66e1faf0ad4ece28c42a1877e95bbb1355396231d161d78b8ca8a99accc2d7  /tmp/terraform.zip' && \
     unzip -d /usr/local/bin /tmp/terraform.zip
 
-FROM awerlang/gui
-
-# Supporting GUI libraries
-RUN zypper --non-interactive in \
-        glib2-tools \
-        gtk2-tools \
-        libasound2 \
-        libgtk-3-0 \
-        libsecret-1-0 \
-        libsoftokn3 \
-        libX11-xcb1 \
-        libxkbfile1 \
-        libXss1
+FROM awerlang/browsers
 
 # Development tools
-RUN zypper --non-interactive in bash-completion chromium git-core make nodejs npm
+RUN zypper --non-interactive in bash-completion git-core make nodejs npm
 
 # VS Code
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
