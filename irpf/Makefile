@@ -4,7 +4,6 @@ IMAGE := awerlang/${NAME}
 
 .PHONY: build
 build:
-	@echo '> Building the image' | grep --color=always .
 	container-build ${NAME} ${YEAR}
 
 .PHONY: name

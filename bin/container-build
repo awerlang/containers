@@ -3,16 +3,17 @@
 IMAGE=$1
 CONTEXT=${2-.}
 DATE=$(date +%Y%m%d)
+BASE=leap
 
 build() {
-    mkdir -p $HOME/.cache/podman/leap/metadata/{raw,solv}
-    mkdir -p $HOME/.cache/podman/leap/${IMAGE}
-    podman build --layers \
+	echo "> Building image: ${IMAGE}" | grep --color=always .
+    mkdir -p $HOME/.cache/podman/${BASE}/metadata/{raw,solv}
+    mkdir -p $HOME/.cache/podman/${BASE}/${IMAGE}
                 --build-arg=LOCAL_UID="$(id -u)" \
                 --build-arg=LOCAL_GID="$(id -g)" \
-                --volume $HOME/.cache/podman/leap/metadata/raw:/var/cache/zypp/raw \
-                --volume $HOME/.cache/podman/leap/metadata/solv:/var/cache/zypp/solv \
-                --volume $HOME/.cache/podman/leap/${IMAGE}:/var/cache/zypp/packages \
+                --volume $HOME/.cache/podman/${BASE}/metadata/raw:/var/cache/zypp/raw \
+                --volume $HOME/.cache/podman/${BASE}/metadata/solv:/var/cache/zypp/solv \
+                --volume $HOME/.cache/podman/${BASE}/${IMAGE}:/var/cache/zypp/packages \
                 -t awerlang/${IMAGE} \
                 -t awerlang/${IMAGE}:${DATE} \
                 $CONTEXT
