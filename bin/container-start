@@ -4,7 +4,7 @@ start() {
     [[ -n "$1" ]] && cd $(readlink -f $(dirname $0)/..)/${1} || exit 1
 
     local name=$(make name)
-    create_as_needed ${name} && make run && podman start -a ${name}
+    create_as_needed ${name} && make run && podman start ${name}
 }
 
 is_image() {
