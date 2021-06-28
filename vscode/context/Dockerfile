@@ -3,11 +3,17 @@ FROM awerlang/buildpack-deps as builder
 RUN curl -fsSL -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.14.7/terraform_0.14.7_linux_amd64.zip && \
     sha256sum --check --status - <<<'6b66e1faf0ad4ece28c42a1877e95bbb1355396231d161d78b8ca8a99accc2d7  /tmp/terraform.zip' && \
     unzip -d /usr/local/bin /tmp/terraform.zip
+RUN curl -fsSL -o /tmp/delta.tar.gz https://github.com/dandavison/delta/releases/download/0.8.1/delta-0.8.1-x86_64-unknown-linux-gnu.tar.gz && \
+    sha256sum --check --status - <<<'8379e491b5679eb50bb97b87a369273f2f7c63289126592f6367020df09d750f  /tmp/delta.tar.gz' && \
+    tar -xvf /tmp/delta.tar.gz --strip-components 1 -C /usr/local/bin --wildcards --no-anchored delta && \
+    ls -lh /usr/local/bin
 
 FROM awerlang/browsers
 
 # Development tools
-RUN zypper --non-interactive in bash-completion git-core make nodejs npm
+RUN zypper --non-interactive addrepo https://download.opensuse.org/repositories/M17N/openSUSE_Leap_15.2/M17N.repo && \
+    zypper --gpg-auto-import-keys refresh M17N && \
+    zypper --non-interactive in bash-completion fira-code-fonts git-core make nodejs npm strace
 
 # VS Code
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
@@ -48,4 +54,4 @@ ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
 
 ENTRYPOINT ["/usr/bin/dbus-run-session"]
-CMD ["code", "--verbose", "--disable-telemetry", "--no-sandbox", "--disable-gpu", "--no-xshm", "--disable-dev-shm-usage", "--disable-features=VizDisplayCompositor"]
+CMD ["code", "--wait", "--disable-telemetry", "--no-sandbox", "--disable-gpu", "--no-xshm", "--disable-dev-shm-usage", "--disable-features=VizDisplayCompositor"]
