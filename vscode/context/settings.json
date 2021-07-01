@@ -10,13 +10,28 @@
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
+    "editor.stickyTabStops": true,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        "package.json": "package"
+    },
+    "[package]": {
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": false
+    },
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
-    "terminal.integrated.shell.linux": "/bin/bash",
     "timeline.excludeSources": [],
     "update.mode": "none",
     "window.menuBarVisibility": "toggle",
