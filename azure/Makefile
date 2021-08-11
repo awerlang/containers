@@ -1,6 +1,9 @@
 NAME := azure
 IMAGE := awerlang/${NAME}
 
+include ../.env
+export $(shell sed 's/=.*//' ../.env)
+
 .PHONY: build
 build:
 	container-build ${NAME}
@@ -13,7 +16,8 @@ name:
 create:
 	podman create --name=${NAME} \
 					--label=persistent \
-					--network host \
+					--dns ${CONFIG_DNS} \
+					--dns 8.8.8.8 \
 					--cap-drop ALL \
 					--security-opt no-new-privileges \
 					--shm-size 2g \

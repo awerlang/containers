@@ -35,5 +35,4 @@ RUN zypper --non-interactive in \
         mozilla-nspr \
         mozilla-nss \
         noto-coloremoji-fonts \
-        systemd \
         xdg-utils

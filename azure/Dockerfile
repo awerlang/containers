@@ -1,6 +1,6 @@
 FROM awerlang/buildpack-deps as builder
 
-RUN curl -fsSL -o /tmp/azuredatastudio-linux.rpm https://sqlopsbuilds.azureedge.net/stable/796abbdf5fdd341e3528e30a6b777c93e115eb02/azuredatastudio-linux-1.26.1.rpm
+RUN curl -fsSL -o /tmp/azuredatastudio-linux.rpm https://go.microsoft.com/fwlink/?linkid=2168271
 
 FROM awerlang/gui
 
