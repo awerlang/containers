@@ -9,7 +9,7 @@ build() {
 	echo "> Building image: ${IMAGE}" | grep --color=always .
     mkdir -p $HOME/.cache/podman/${BASE}/metadata/{raw,solv}
     mkdir -p $HOME/.cache/podman/${BASE}/${IMAGE}
-    buildah bud --layers \
+    podman build --layers \
                 --build-arg=LOCAL_UID="$(id -u)" \
                 --build-arg=LOCAL_GID="$(id -g)" \
                 --volume $HOME/.cache/podman/${BASE}/metadata/raw:/var/cache/zypp/raw:O \
