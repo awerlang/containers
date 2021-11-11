@@ -1,3 +1,3 @@
 #!/bin/bash
 
-podman exec -it vscode bash
+podman exec -it -e FORCE_COLOR=1 vscode bash
