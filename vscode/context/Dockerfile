@@ -11,9 +11,7 @@ RUN curl -fsSL -o /tmp/delta.tar.gz https://github.com/dandavison/delta/releases
 FROM awerlang/browsers
 
 # Development tools
-RUN zypper --non-interactive addrepo https://download.opensuse.org/repositories/M17N/openSUSE_Leap_15.2/M17N.repo && \
-    zypper --gpg-auto-import-keys refresh M17N && \
-    zypper --non-interactive in bash-completion fira-code-fonts git-core make nodejs npm strace
+RUN zypper --non-interactive in bash-completion fira-code-fonts git-core make nodejs npm strace util-linux
 
 # VS Code
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc

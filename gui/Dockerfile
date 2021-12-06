@@ -1,10 +1,15 @@
 FROM awerlang/opensuse
 
 RUN zypper --non-interactive in \
+        adwaita-icon-theme \
+        breeze5-cursors \
         dejavu-fonts \
+        findutils \
         fonts-config \
         glib2-tools \
+        gtk2-metatheme-adwaita \
         gtk2-tools \
+        gtk3-metatheme-adwaita \
         libasound2 \
         libatk-1_0-0 \
         libcups2 \

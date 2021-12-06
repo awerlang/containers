@@ -17,6 +17,7 @@ create:
 					--label=persistent \
 					--cap-drop ALL \
 					--security-opt no-new-privileges \
+					--security-opt seccomp=unconfined \
 					--shm-size 2g \
 					--tmpfs /run \
 					--userns=keep-id \
