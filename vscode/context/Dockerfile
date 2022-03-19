@@ -47,9 +47,5 @@ ENV BROWSER=web
 ENV PATH=~/.npm-global/bin:$PATH
 ENV XAUTHORITY=/tmp/.Xauthority
 
-ENV QT_X11_NO_MITSHM=1
-ENV _X11_NO_MITSHM=1
-ENV _MITSHM=0
-
 ENTRYPOINT ["/usr/bin/dbus-run-session"]
-CMD ["code", "--wait", "--disable-telemetry", "--no-sandbox", "--disable-gpu", "--no-xshm", "--disable-dev-shm-usage", "--disable-features=VizDisplayCompositor"]
+CMD ["code", "--wait", "--disable-telemetry"]
