@@ -6,13 +6,25 @@ RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers
     sha256sum --check --status - <<<'c23aef487520946b1d0c1dd5439089b833b5427f4787cf048ab1c9039e7bb7f8  /tmp/safenet/SafenetAuthenticationClient-10.7.77-1.x86_64.rpm' && \
     rm -rf /tmp/safenet.zip
 
-FROM awerlang/firefox
+FROM awerlang/browsers
 
 RUN zypper --non-interactive in \
         icedtea-web java-1_8_0-openjdk \
-        opensc pcsc-ccid pcsc-lite pcsc-tools \
-        polkit-default-privs \
-        xdg-utils
+        mozilla-nss-tools \
+        opensc openssl pcsc-ccid pcsc-lite pcsc-tools \
+        polkit-default-privs util-linux
+
+USER user
+
+ENV FIREFOX_PROFILE=default-release
+RUN firefox -headless -no-remote -CreateProfile ${FIREFOX_PROFILE}
+RUN find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE} && \
+{                                               \
+    echo 'library=/usr/lib64/libeTPkcs11.so';   \
+    echo 'name=SafeNet eToken';                 \
+} >> $(find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE})/pkcs11.txt
+
+USER root
 
 COPY --from=builder /tmp /tmp
 RUN rpm --import /tmp/RPM-GPG-KEY-SafenetAuthenticationClient && \
