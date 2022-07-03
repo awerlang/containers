@@ -12,8 +12,8 @@ build() {
     podman build --layers \
                 --build-arg=LOCAL_UID="$(id -u)" \
                 --build-arg=LOCAL_GID="$(id -g)" \
-                --volume $HOME/.cache/podman/${BASE}/metadata/raw:/var/cache/zypp/raw:O \
-                --volume $HOME/.cache/podman/${BASE}/metadata/solv:/var/cache/zypp/solv:O \
+                --volume $HOME/.cache/podman/${BASE}/metadata/raw:/var/cache/zypp/raw \
+                --volume $HOME/.cache/podman/${BASE}/metadata/solv:/var/cache/zypp/solv \
                 --volume $HOME/.cache/podman/${BASE}/${IMAGE}:/var/cache/zypp/packages \
                 -t awerlang/${IMAGE} \
                 -t awerlang/${IMAGE}:${DATE} \
