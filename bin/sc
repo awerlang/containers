@@ -1,0 +1,13 @@
+#!/bin/bash
+
+VERSION=4.8.1
+
+SCRIPT="
+set -o errexit
+curl -s -o /tmp/sauce.tar.gz "https://saucelabs.com/downloads/sc-${VERSION}-linux.tar.gz"
+tar xf /tmp/sauce.tar.gz --directory=/tmp
+cp /tmp/sc*/bin/sc /usr/local/bin/sc
+sc $@
+"
+
+podman run --rm -it --entrypoint /bin/bash awerlang/buildpack-deps -c "$SCRIPT"
