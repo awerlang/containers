@@ -10,4 +10,4 @@ cp /tmp/sc*/bin/sc /usr/local/bin/sc
 sc $@
 "
 
-podman run --rm -it --entrypoint /bin/bash awerlang/buildpack-deps -c "$SCRIPT"
+podman run --rm -it --network host --entrypoint /bin/bash awerlang/buildpack-deps -c "$SCRIPT"
