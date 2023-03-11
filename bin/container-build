@@ -3,7 +3,7 @@
 IMAGE=$1
 CONTEXT=${2-.}
 DATE=$(date +%Y%m%d)
-BASE=tumbleweed
+BASE=${3-tumbleweed}
 
 build() {
 	echo "> Building image: ${IMAGE}" | grep --color=always .
