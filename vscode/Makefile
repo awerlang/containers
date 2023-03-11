@@ -15,10 +15,8 @@ name:
 create:
 	podman create --name=${NAME} \
 					--label=persistent \
-					--cap-drop ALL \
 					--security-opt no-new-privileges \
-					--security-opt seccomp=unconfined \
-					--shm-size 2g \
+					--ipc host \
 					--tmpfs /run \
 					--userns=keep-id \
 					--volume=${HOME}/src:/src \

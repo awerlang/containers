@@ -34,5 +34,4 @@ ENV BROWSER=web
 ENV PATH=~/.npm-global/bin:$PATH
 ENV XAUTHORITY=/tmp/.Xauthority
 
-ENTRYPOINT ["/usr/bin/dbus-run-session"]
-CMD ["code", "--wait", "--disable-telemetry"]
+CMD ["code", "--wait"]
