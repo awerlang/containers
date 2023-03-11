@@ -1,13 +1,26 @@
 #!/bin/bash
 
-VERSION=4.8.1
+VERSION=4.8.2
+IMAGE=sc
 
-SCRIPT="
-set -o errexit
-curl -s -o /tmp/sauce.tar.gz "https://saucelabs.com/downloads/sc-${VERSION}-linux.tar.gz"
-tar xf /tmp/sauce.tar.gz --directory=/tmp
-cp /tmp/sc*/bin/sc /usr/local/bin/sc
-sc $@
-"
+build() {
+    podman build -t awerlang/${IMAGE}:${VERSION} -f - <<EOF
+        FROM awerlang/buildpack-deps as builder
 
-podman run --rm -it --network host --entrypoint /bin/bash awerlang/buildpack-deps -c "$SCRIPT"
+        RUN curl -fsSL -o /tmp/sauce.tar.gz "https://saucelabs.com/downloads/sc-${VERSION}-linux.tar.gz" && \
+            tar xfv /tmp/sauce.tar.gz --directory=/tmp
+
+        FROM awerlang/opensuse
+
+        COPY --from=builder /tmp/sc*/bin/sc /usr/local/bin/sc
+
+        ENTRYPOINT [ "/usr/local/bin/sc" ]
+EOF
+}
+
+exists() {
+    podman inspect --type image awerlang/${IMAGE}:${VERSION} &>/dev/null
+}
+
+exists || build || { echo "Could not build image, stopping"; exit 1; }
+podman run --rm --network host awerlang/${IMAGE}:${VERSION} "$@"
