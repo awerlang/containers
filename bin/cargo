@@ -2,7 +2,7 @@
 
 is_container() {
     local name=$1
-    podman ps --all --format '{{.Names}}' | fgrep -w $name &>/dev/null
+    podman ps --all --format '{{.Names}}' | grep -F -w $name &>/dev/null
 }
 
 if ! is_container rust; then

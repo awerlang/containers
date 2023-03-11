@@ -14,7 +14,7 @@ is_image() {
 
 is_container() {
     local name=$1
-    podman ps --all --format '{{.Names}}' | fgrep -w $name
+    podman ps --all --format '{{.Names}}' | grep -F -w $name
 }
 
 create_as_needed() {
