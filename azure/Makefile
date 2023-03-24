@@ -36,7 +36,7 @@ create:
 .PHONY: run
 run:
 	@copy_Xauthority trusted ${NAME}
-	podman cp ~/src/private/containers/azure/krb5-*.conf ${NAME}:/etc/krb5.conf.d
+	podman cp "${WORKSPACE_PATH}/.config/azure/krb5-*.conf" "${NAME}:/etc/krb5.conf.d"
 
 .PHONY: clean
 clean:
