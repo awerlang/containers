@@ -3,12 +3,13 @@ FROM awerlang/browsers
 # Development tools
 RUN zypper --non-interactive in bash-completion fira-code-fonts git-core git-delta make nodejs npm strace terraform util-linux
 
-# VS Code
+# VS Code & Microsoft Edge
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
 RUN rpm --import microsoft.asc && \
-    echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo && \
-    zypper modifyrepo --keep-packages code && \
-    zypper --non-interactive in code
+    echo -e "[vscode]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo && \
+    echo -e "[msedge]\nname=Microsoft Edge\nbaseurl=https://packages.microsoft.com/yumrepos/edge\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/msedge.repo && \
+    zypper modifyrepo --keep-packages vscode msedge && \
+    zypper --non-interactive in code microsoft-edge-stable
 
 USER user
 
