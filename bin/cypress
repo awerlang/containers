@@ -1,3 +1,41 @@
 #!/bin/bash
 
-podman run --rm --net=host -v $(pwd):/app -w /app cypress/included:8.2.0
+NAME=cypress
+IMAGE=cypress/included:12.5.1
+
+copy() {
+    local untrusted=$1
+    tmp1=$(mktemp --tmpdir)
+    tmp2=$(mktemp --tmpdir)
+    xauth -f "${tmp1}" generate "$DISPLAY" . "$untrusted" timeout 0
+    xauth -f "${tmp1}" nlist "$DISPLAY" | sed -e 's/^..../ffff/' | xauth -f "${tmp2}" nmerge -
+
+    chmod +r "${tmp2}"
+    echo "${tmp2}"
+}
+
+xcookie="$(copy untrusted)"
+podman run --name=${NAME} \
+            --rm \
+            --cap-drop ALL \
+            --cap-add SETUID \
+            --cap-add SETGID \
+            --cap-add AUDIT_WRITE \
+            --cap-add DAC_OVERRIDE \
+            --cap-add CHOWN \
+            --security-opt no-new-privileges \
+            --shm-size 2g \
+            --volume=/etc/localtime:/etc/localtime:ro \
+            --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
+            --volume="$xcookie":/tmp/.Xauthority \
+            --volume=/etc/machine-id:/etc/machine-id:ro \
+            --volume="$(pwd)":/app \
+            -w /app \
+            --network host \
+            --env "DISPLAY=${DISPLAY}" \
+            --env "XAUTHORITY=/tmp/.Xauthority" \
+            --env "LANG=en_US.UTF-8" \
+            --env "CYPRESS_TARGET_ENV" \
+            --init \
+            --entrypoint cypress \
+            ${IMAGE} open
