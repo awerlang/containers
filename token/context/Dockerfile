@@ -1,9 +1,9 @@
 FROM awerlang/buildpack-deps as builder
 
 ADD RPM-GPG-KEY-SafenetAuthenticationClient /tmp/
-RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers/USB/10.7/Safenet_Linux_Installer_RPM_x64.zip && \
+RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers/USB/10.8/GlobalSign-SAC-CentOS-9.zip && \
     unzip -j -d /tmp/safenet /tmp/safenet.zip && \
-    sha256sum --check --status - <<<'c23aef487520946b1d0c1dd5439089b833b5427f4787cf048ab1c9039e7bb7f8  /tmp/safenet/SafenetAuthenticationClient-10.7.77-1.x86_64.rpm' && \
+    sha256sum --check --status - <<<'749ca96ec421856fca8e76735d66fe7d191bcc0bc665199c7d8b6dd4e6104ff4  /tmp/safenet/SafenetAuthenticationClient-10.8.1050-1.el9.x86_64.rpm' && \
     rm -rf /tmp/safenet.zip
 
 FROM awerlang/browsers
@@ -28,7 +28,7 @@ USER root
 
 COPY --from=builder /tmp /tmp
 RUN rpm --import /tmp/RPM-GPG-KEY-SafenetAuthenticationClient && \
-    rpm -hi /tmp/safenet/SafenetAuthenticationClient-10.7.77-1.x86_64.rpm && \
+    rpm -hi --nodeps /tmp/safenet/SafenetAuthenticationClient-10.8.1050-1.el9.x86_64.rpm && \
     sed -i 's/^LanguageId=[a-z][a-z]-[A-Z][A-Z]$/LanguageId=pt-BR/' /etc/eToken.conf
 
 ADD https://wiki.thema.inf.br/wiki/upload/2017/6/thema-ca-05162528.crt /etc/pki/trust/anchors/thema-ca.crt
