@@ -24,8 +24,8 @@ create:
 					--security-opt no-new-privileges \
 					--shm-size 2g \
 					--volume=/etc/localtime:/etc/localtime:ro \
-					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--volume /etc/machine-id:/etc/machine-id:ro \
+					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--env "DISPLAY=${DISPLAY}" \
 					--env "LANG=pt_BR.UTF-8" \
 					--init \

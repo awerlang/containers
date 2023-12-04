@@ -12,5 +12,3 @@ setpriv --reuid=user --regid=users --init-groups \
         --inh-caps=-setuid,-setgid,-chown,-dac_override,-audit_write \
         --reset-env \
         env DISPLAY=$DISPLAY LANG=$LANG startup.sh
-
-rm -rf /tmp/*
