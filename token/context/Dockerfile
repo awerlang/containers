@@ -10,7 +10,7 @@ FROM awerlang/browsers
 
 RUN zypper --non-interactive in \
         opensc openssl pcsc-ccid pcsc-lite pcsc-tools \
-        polkit-default-privs util-linux
+        polkit-default-privs
 
 USER user
 

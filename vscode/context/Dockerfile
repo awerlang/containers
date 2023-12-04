@@ -1,7 +1,7 @@
 FROM awerlang/browsers
 
 # Development tools
-RUN zypper --non-interactive in bash-completion fira-code-fonts git-core git-delta make nodejs npm strace terraform util-linux
+RUN zypper --non-interactive in bash-completion fira-code-fonts git-core git-delta make nodejs npm strace terraform
 
 # VS Code & Microsoft Edge
 ADD https://packages.microsoft.com/keys/microsoft.asc microsoft.asc
