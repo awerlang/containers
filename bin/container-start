@@ -18,9 +18,9 @@ is_container() {
 }
 
 create_as_needed() {
-    if ! is_container $1; then
-        if ! is_image awerlang/$1; then
-            make >/dev/null
+    if ! is_container "$1"; then
+        if ! is_image "awerlang/$1"; then
+            notify-send "$1" "Image for $1 must be built before use"
         fi
         echo 'Creating container' | grep --color=always .
         make create >/dev/null
