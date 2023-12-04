@@ -1,5 +1,6 @@
 FROM opensuse/tumbleweed
 
+ENV ZYPP_SINGLE_RPMTRANS=1
 RUN sed -i 's/.*useColors.*/useColors = always/' /etc/zypp/zypper.conf && \
     zypper modifyrepo --keep-packages --all && \
     zypper modifyrepo --disable repo-non-oss && \
