@@ -23,6 +23,7 @@ create:
 					--security-opt seccomp=unconfined \
 					--shm-size 2g \
 					--tmpfs /run \
+					--volume=/dev/dri:/dev/dri \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--volume=/run/pcscd:/run/pcscd:ro \
