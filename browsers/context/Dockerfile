@@ -1,5 +1,15 @@
 FROM awerlang/gui
 
-RUN zypper --non-interactive in --allow-vendor-change MozillaFirefox chromium libpci3
+RUN zypper --non-interactive in MozillaFirefox \
+    chromium \
+    file-roller \
+    kitty \
+    kupfer \
+    leafpad \
+    libpci3 \
+    thunar \
+    thunar-plugin-archive
 
 COPY * /usr/local/bin
+
+CMD [ "kupfer" ]
