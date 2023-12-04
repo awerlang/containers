@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME=cypress
-IMAGE=cypress/included:12.5.1
+IMAGE=cypress/included:$(jq -r .devDependencies.cypress cypress/package.json)
 
 copy() {
     local untrusted=$1
