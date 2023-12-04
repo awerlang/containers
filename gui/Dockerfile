@@ -40,4 +40,6 @@ RUN zypper --non-interactive in \
         mozilla-nspr \
         mozilla-nss \
         noto-coloremoji-fonts \
-        xdg-utils
+        patterns-fonts-fonts  \
+        xdg-utils \
+        xorg-x11-fonts
