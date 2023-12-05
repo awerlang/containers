@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME=cypress
-IMAGE=cypress/included:$(jq -r .devDependencies.cypress cypress/package.json)
+IMAGE=cypress/included:$(jq -r .devDependencies.cypress package.json)
 
 copy() {
     local untrusted=$1
@@ -25,10 +25,11 @@ podman run --name=${NAME} \
             --cap-add CHOWN \
             --security-opt no-new-privileges \
             --shm-size 2g \
+            --tmpfs /run \
             --volume=/etc/localtime:/etc/localtime:ro \
+            --volume=/etc/machine-id:/etc/machine-id:ro \
             --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
             --volume="$xcookie":/tmp/.Xauthority \
-            --volume=/etc/machine-id:/etc/machine-id:ro \
             --volume="$(pwd)":/app \
             -w /app \
             --network host \
@@ -38,4 +39,4 @@ podman run --name=${NAME} \
             --env "CYPRESS_TARGET_ENV" \
             --init \
             --entrypoint cypress \
-            ${IMAGE} open
+            ${IMAGE} "${@}"
