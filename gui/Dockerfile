@@ -3,6 +3,7 @@ FROM awerlang/opensuse
 RUN zypper --non-interactive in \
         adwaita-icon-theme \
         breeze5-cursors \
+        dbus-1-x11 \
         dejavu-fonts \
         findutils \
         fonts-config \
@@ -10,8 +11,10 @@ RUN zypper --non-interactive in \
         gtk2-metatheme-adwaita \
         gtk2-tools \
         gtk3-metatheme-adwaita \
+        intel-media-driver \
         libasound2 \
         libatk-1_0-0 \
+        libcanberra0 \
         libcups2 \
         libdrm2 \
         libgbm1 \
@@ -24,6 +27,7 @@ RUN zypper --non-interactive in \
         libpulse0 \
         libsecret-1-0 \
         libsoftokn3 \
+        libva-utils \
         libX11-6 \
         libX11-xcb1 \
         libxcb-dri3-0 \
