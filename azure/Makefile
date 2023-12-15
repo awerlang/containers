@@ -4,6 +4,8 @@ IMAGE := awerlang/${NAME}
 include ../.env
 export $(shell sed 's/=.*//' ../.env)
 
+CONFIG_FILE := $(shell find ${WORKSPACE_PATH}/.config/azure/ -name 'krb5-*.conf')
+
 .PHONY: build
 build:
 	container-build ${NAME}
@@ -36,7 +38,7 @@ create:
 .PHONY: run
 run:
 	@copy_Xauthority trusted ${NAME}
-	podman cp "${WORKSPACE_PATH}/.config/azure/krb5-*.conf" "${NAME}:/etc/krb5.conf.d"
+	podman cp "${CONFIG_FILE}" "${NAME}:/etc/krb5.conf.d"
 
 .PHONY: clean
 clean:
