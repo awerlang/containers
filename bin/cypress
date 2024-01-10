@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o nounset
+
 NAME=cypress
 IMAGE=cypress/included:$(jq -r .devDependencies.cypress package.json)
 
@@ -13,6 +15,18 @@ copy() {
     chmod +r "${tmp2}"
     echo "${tmp2}"
 }
+
+declare -a wayland_args
+
+if [ ! -z ${WAYLAND_DISPLAY:-} ]; then
+    wayland_args=(
+        --volume=${HOME}/.config/electron25-flags.conf:/home/node/.config/electron25-flags.conf
+        --volume=${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-}:/tmp/${WAYLAND_DISPLAY:-}
+        --env "WAYLAND_DISPLAY"
+        --env "XDG_SESSION_TYPE=wayland"
+        --env "GDK_BACKEND=wayland"
+    )
+fi
 
 xcookie="$(copy untrusted)"
 podman run --name=${NAME} \
@@ -42,6 +56,8 @@ podman run --name=${NAME} \
             --env "XAUTHORITY=/tmp/.Xauthority" \
             --env "LANG=en_US.UTF-8" \
             --env "CYPRESS_TARGET_ENV" \
+            --env "XDG_RUNTIME_DIR=/tmp" \
+            "${wayland_args[@]}" \
             --init \
             --entrypoint cypress \
-            ${IMAGE} "${@}"
+            "${IMAGE}" "${@}"
