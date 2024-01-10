@@ -31,8 +31,13 @@ podman run --name=${NAME} \
             --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
             --volume="$xcookie":/tmp/.Xauthority \
             --volume="$(pwd)":/app \
+            --volume=cypress-config:/home/node/.config/Cypress/cy/production \
+            --volume=cypress-pki:/home/node/.pki/nssdb \
             -w /app \
             --network host \
+            --user=$(id -u):$(id -g) \
+            --userns=keep-id \
+            --env "HOME=/home/node" \
             --env "DISPLAY=${DISPLAY}" \
             --env "XAUTHORITY=/tmp/.Xauthority" \
             --env "LANG=en_US.UTF-8" \
