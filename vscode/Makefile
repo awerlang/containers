@@ -21,11 +21,12 @@ create:
 					--userns=keep-id \
 					--volume=/dev/dri:/dev/dri \
 					--volume=${HOME}/src:/src \
-				    --volume=${HOME}/.ssh:/home/user/.ssh \
+					--volume=${HOME}/.ssh:/home/user/.ssh \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume /etc/machine-id:/etc/machine-id:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--env "DISPLAY=${DISPLAY}" \
+					--env "XDG_RUNTIME_DIR=/tmp" \
 					--init \
 					${IMAGE} >/dev/null
 
