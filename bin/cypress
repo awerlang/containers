@@ -18,16 +18,18 @@ copy() {
 
 declare -a wayland_args
 
-if [ ! -z ${WAYLAND_DISPLAY:-} ]; then
+if [ -n "${WAYLAND_DISPLAY:-}" ]; then
     wayland_args=(
-        --volume=${HOME}/.config/electron25-flags.conf:/home/node/.config/electron25-flags.conf
-        --volume=${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-}:/tmp/${WAYLAND_DISPLAY:-}
+        --volume="${HOME}/.config/electron25-flags.conf:/home/node/.config/electron25-flags.conf"
+        --volume="${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-}:/tmp/${WAYLAND_DISPLAY:-}"
         --env "WAYLAND_DISPLAY"
         --env "XDG_SESSION_TYPE=wayland"
         --env "GDK_BACKEND=wayland"
     )
 fi
 
+current_dir=$(pwd)
+dir_name=$(basename "$current_dir")
 xcookie="$(copy untrusted)"
 podman run --name=${NAME} \
             --rm \
@@ -44,12 +46,12 @@ podman run --name=${NAME} \
             --volume=/etc/machine-id:/etc/machine-id:ro \
             --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
             --volume="$xcookie":/tmp/.Xauthority \
-            --volume="$(pwd)":/app \
+            --volume="$current_dir/..":/app \
             --volume=cypress-config:/home/node/.config/Cypress/cy/production \
             --volume=cypress-pki:/home/node/.pki/nssdb \
-            -w /app \
+            -w "/app/$dir_name" \
             --network host \
-            --user=$(id -u):$(id -g) \
+            --user="$(id -u):$(id -g)" \
             --userns=keep-id \
             --env "HOME=/home/node" \
             --env "DISPLAY=${DISPLAY}" \
