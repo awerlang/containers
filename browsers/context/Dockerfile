@@ -13,4 +13,8 @@ RUN zypper --non-interactive in MozillaFirefox \
 
 COPY * /usr/local/bin
 
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+
 CMD [ "kupfer" ]

@@ -16,7 +16,6 @@ create:
 	podman create --name=${NAME} \
 					--label=persistent \
 					--security-opt no-new-privileges \
-					--ipc host \
 					--tmpfs /run \
 					--userns=keep-id \
 					--volume=/dev/dri:/dev/dri \
