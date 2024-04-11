@@ -17,4 +17,4 @@ ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
 
-CMD [ "kupfer" ]
+CMD [ "container-init" ]

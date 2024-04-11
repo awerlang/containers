@@ -27,7 +27,6 @@ create:
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--volume=/run/pcscd:/run/pcscd:ro \
-					--env "DISPLAY=${DISPLAY}" \
 					--env "LANG=pt_BR.UTF-8" \
 					--env "LANGUAGE=pt_BR:en_US:en" \
 					--init \

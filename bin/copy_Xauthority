@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-copy() {
+copy_xauth() {
     local untrusted=$1
     local name=$2
     tmp1=$(mktemp)
@@ -14,4 +14,16 @@ copy() {
     rm "${tmp1}" "${tmp2}"
 }
 
-copy "$1" "$2"
+copy_env() {
+    local name=$1
+    tmp1=$(mktemp)
+
+    printf "export DISPLAY=%s\n" "$DISPLAY" > "${tmp1}"
+
+    chmod +r "${tmp1}"
+    podman cp "${tmp1}" "$name":/tmp/.env
+    rm "${tmp1}"
+}
+
+copy_xauth "$1" "$2"
+copy_env "$2"
