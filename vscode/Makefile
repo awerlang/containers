@@ -17,6 +17,7 @@ create:
 					--label=persistent \
 					--security-opt no-new-privileges \
 					--tmpfs /run \
+					--mount type=tmpfs,dst=${XDG_RUNTIME_DIR},chown=true,tmpfs-mode=0700 \
 					--userns=keep-id \
 					--volume=/dev/dri:/dev/dri \
 					--volume=${HOME}/src:/src \
@@ -24,7 +25,7 @@ create:
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume /etc/machine-id:/etc/machine-id:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
-					--env "XDG_RUNTIME_DIR=/tmp" \
+					--env "XDG_RUNTIME_DIR" \
 					--init \
 					${IMAGE} >/dev/null
 

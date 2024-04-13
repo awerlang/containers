@@ -1,5 +1,4 @@
 #!/bin/bash
 
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/dev/null
 . /tmp/.env
-kupfer
+dbus-launch --exit-with-session kupfer
