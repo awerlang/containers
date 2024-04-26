@@ -28,9 +28,21 @@ if [ -n "${WAYLAND_DISPLAY:-}" ]; then
     )
 fi
 
+ensure_volume() {
+    local name=$1
+    podman volume exists "$name" || podman volume create "$name"
+} >/dev/null
+
 current_dir=$(pwd)
 dir_name=$(basename "$current_dir")
+project_name=$(jq -r .name ./package.json)
 xcookie="$(copy untrusted)"
+
+ensure_volume cypress-config
+ensure_volume cypress-pki
+cypress_node=cypress-node-"$project_name"
+ensure_volume "$cypress_node"
+
 podman run --name=${NAME} \
             --rm \
             --cap-drop ALL \
@@ -49,6 +61,7 @@ podman run --name=${NAME} \
             --volume="$current_dir/..":/app \
             --volume=cypress-config:/home/node/.config/Cypress/cy/production \
             --volume=cypress-pki:/home/node/.pki/nssdb \
+            --volume="$cypress_node":/app/node_modules \
             -w "/app/$dir_name" \
             --network host \
             --user="$(id -u):$(id -g)" \
