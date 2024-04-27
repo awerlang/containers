@@ -34,6 +34,7 @@ create:
 
 .PHONY: run
 run:
+	systemctl is-active pcscd.service || sudo systemctl start pcscd.service
 	@copy_Xauthority trusted ${NAME}
 
 .PHONY: clean
