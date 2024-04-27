@@ -1,15 +1,8 @@
 SUBDIRS = azure \
 		  buildpack-deps \
 		  browsers \
-		  displaycal \
-		  gcc \
 		  gui \
-		  irpf \
-		  jdk8 \
-		  jdk11 \
 		  opensuse \
-		  pgadmin \
-		  rust \
 		  token \
 		  vscode \
 		  warsaw
