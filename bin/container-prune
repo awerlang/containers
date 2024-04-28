@@ -16,6 +16,6 @@ for image in $(podman images --format "{{.Repository}}" --filter reference="awer
 done
 
 # dangling images
-buildah rmi --prune
+echo y | podman image prune
 
 echo y | podman volume prune

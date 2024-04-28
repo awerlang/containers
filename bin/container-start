@@ -9,12 +9,12 @@ start() {
 
 is_image() {
     local name=$1
-    podman images --quiet --no-trunc $name | grep .
+    podman image exists "$name"
 }
 
 is_container() {
     local name=$1
-    podman ps --all --format '{{.Names}}' | grep -F -w $name
+    podman container exists "$name"
 }
 
 create_as_needed() {
