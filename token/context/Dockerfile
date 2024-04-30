@@ -38,7 +38,4 @@ RUN ln -s /bin/env /bin/sudo && \
     } >> /etc/polkit-default-privs.local && \
     set_polkit_default_privs
 
-COPY *.sh /usr/local/bin/
-RUN chmod 755 /usr/local/bin/*.sh
-
-ENTRYPOINT /usr/local/bin/root.sh
+USER user

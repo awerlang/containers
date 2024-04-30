@@ -33,4 +33,3 @@ COPY web /usr/local/bin/
 ENV BROWSER=web
 
 ENV PATH=~/.npm-global/bin:$PATH
-ENV XAUTHORITY=/tmp/.Xauthority

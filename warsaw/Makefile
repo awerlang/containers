@@ -27,12 +27,13 @@ create:
 					--volume /etc/machine-id:/etc/machine-id:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--env "LANG=pt_BR.UTF-8" \
+					--env "LANGUAGE=pt_BR:en_US:en" \
 					--init \
 					${IMAGE} >/dev/null
 
 .PHONY: run
 run:
-	@copy_Xauthority untrusted ${NAME}
+	@copy_Xauthority trusted ${NAME}
 
 .PHONY: clean
 clean:

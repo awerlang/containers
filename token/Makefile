@@ -16,15 +16,12 @@ create:
 	@podman create --name=${NAME} \
 					--label=persistent \
 					--cap-drop ALL \
-					--cap-add SETUID \
-					--cap-add SETGID \
-					--cap-add CHOWN \
 					--security-opt no-new-privileges \
 					--security-opt seccomp=unconfined \
-					--shm-size 2g \
 					--tmpfs /run \
 					--volume=/dev/dri:/dev/dri \
 					--volume=/etc/localtime:/etc/localtime:ro \
+					--volume /etc/machine-id:/etc/machine-id:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
 					--volume=/run/pcscd:/run/pcscd:ro \
 					--env "LANG=pt_BR.UTF-8" \
