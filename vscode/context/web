@@ -1,2 +1,0 @@
-#!/bin/bash
-nohup setsid --fork chromium "$@" &> ~/browser.log

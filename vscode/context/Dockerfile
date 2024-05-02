@@ -28,8 +28,4 @@ RUN mkdir ~/.npm-global && \
     npm config set prefix '~/.npm-global' && \
     npm install -g yarn
 
-# Browser
-COPY web /usr/local/bin/
-ENV BROWSER=web
-
 ENV PATH=~/.npm-global/bin:$PATH
