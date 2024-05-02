@@ -26,6 +26,5 @@ COPY --chown=user:users settings.json /home/user/.config/Code/User/
 # npm / yarn
 RUN mkdir ~/.npm-global && \
     npm config set prefix '~/.npm-global' && \
-    npm install -g yarn
-
-ENV PATH=~/.npm-global/bin:$PATH
+    npm install -g yarn && \
+    echo 'export PATH="$(npm config get prefix)/bin:$PATH"' >> ~/.profile
