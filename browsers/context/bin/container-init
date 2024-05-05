@@ -1,4 +1,4 @@
 #!/bin/bash --login
 
 . /tmp/.env
-dbus-launch --exit-with-session kupfer
+exec dbus-launch --exit-with-session kupfer

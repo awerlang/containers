@@ -9,4 +9,4 @@ RUN sha256sum --check --status - <<<'78474c584bd9422f5ea99803ca64e8641a046890084
 
 COPY bin /usr/local/bin
 
-ENTRYPOINT /usr/local/bin/root.sh
+CMD [ "root.sh" ]
