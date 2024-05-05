@@ -22,7 +22,10 @@ create:
 					--cap-add DAC_OVERRIDE \
 					--cap-add CHOWN \
 					--security-opt no-new-privileges \
-					--shm-size 2g \
+					--security-opt seccomp=unconfined \
+					--tmpfs /run \
+					--tmpfs /tmp \
+					--volume=/dev/dri:/dev/dri \
 					--volume=/etc/localtime:/etc/localtime:ro \
 					--volume /etc/machine-id:/etc/machine-id:ro \
 					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \

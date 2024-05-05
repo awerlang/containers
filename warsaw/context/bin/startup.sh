@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/usr/local/bin/warsaw/core
+/etc/init.d/warsaw start
 container-init
