@@ -1,5 +1,5 @@
 .PHONY: build
-build:
+build: update
 	container-build opensuse
 
 .PHONY: update
