@@ -1,39 +1,17 @@
 NAME := token
-IMAGE := awerlang/${NAME}
-uid := $(shell id -u)
-gid := $(shell id -g)
 
-.PHONY: build
-build:
-	container-build ${NAME} ./context
-
-.PHONY: name
-name:
-	@echo ${NAME}
+.PHONY: build name start enter stop remove clean
+build name start enter stop remove clean:
+	@containerctl $@ ${NAME}
 
 .PHONY: create
 create:
-	@podman create --name=${NAME} \
-					--label=persistent \
-					--cap-drop ALL \
-					--security-opt no-new-privileges \
-					--security-opt seccomp=unconfined \
-					--tmpfs /run \
-					--volume=/dev/dri:/dev/dri \
-					--volume=/etc/localtime:/etc/localtime:ro \
-					--volume /etc/machine-id:/etc/machine-id:ro \
-					--volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
-					--volume=/run/pcscd:/run/pcscd:ro \
-					--env "LANG=pt_BR.UTF-8" \
-					--env "LANGUAGE=pt_BR:en_US:en" \
-					--init \
-					${IMAGE} >/dev/null
+	containerctl create ${NAME} \
+		--volume=/run/pcscd:/run/pcscd:ro \
+		--env "LANG=pt_BR.UTF-8" \
+		--env "LANGUAGE=pt_BR:en_US:en"
 
 .PHONY: run
 run:
 	systemctl is-active pcscd.service || sudo systemctl start pcscd.service
 	@copy_Xauthority trusted ${NAME}
-
-.PHONY: clean
-clean:
-	podman rm ${NAME}

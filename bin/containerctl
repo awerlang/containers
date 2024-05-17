@@ -3,6 +3,7 @@ set -eu
 
 NAMESPACE=awerlang
 . ../.env
+export DEBUG
 if [[ -n "$DEBUG" ]]; then
     set -x
 fi
@@ -28,8 +29,42 @@ run() {
     test -n "$name" || fail "name is required"
 
     case "$command" in
+        name)
+            [ -f "../$name/Makefile" ] || fail "not a valid container directory: $name"
+            echo "$name"
+            ;;
         build)
             container-build "$name" ./context
+            ;;
+        create)
+            local tag=$(podman image ls --format "{{.Tag}}" "$NAMESPACE/$name" | grep "[0-9]" | sort --reverse | head -n 1)
+            podman create \
+                --name="$name" \
+                --label persistent \
+                --init \
+                --cap-drop ALL \
+		        --cap-add CAP_SYS_CHROOT \
+                --security-opt no-new-privileges \
+                --volume /dev/dri:/dev/dri \
+                --volume /etc/localtime:/etc/localtime:ro \
+                --volume /etc/machine-id:/etc/machine-id:ro \
+                --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+                --tmpfs /run \
+                --tmpfs /tmp \
+                "$@" \
+                "$NAMESPACE/$name:$tag" >/dev/null
+            ;;
+        start)
+            container-start "$name"
+            ;;
+        enter)
+            podman exec -it "$name" bash
+            ;;
+        stop)
+            podman stop "$name"
+            ;;
+        remove)
+            podman rm "$name"
             ;;
         clean)
             podman image rm "$NAMESPACE/$name"
