@@ -8,4 +8,4 @@ RUN sed -i 's/.*useColors.*/useColors = always/' /etc/zypp/zypper.conf && \
 
 ARG LOCAL_UID
 ARG LOCAL_GID
-RUN useradd -mr -u ${LOCAL_UID} -g ${LOCAL_GID} user
+RUN useradd -u ${LOCAL_UID} -g ${LOCAL_GID} user
