@@ -10,7 +10,6 @@ RUN zypper --non-interactive in MozillaFirefox \
     thunar \
     thunar-plugin-archive \
     util-linux
-RUN rpm -e --nodeps systemd
 
 COPY bin /usr/local/bin
 COPY --chown=user kupfer.cfg /home/user/.config/kupfer/
