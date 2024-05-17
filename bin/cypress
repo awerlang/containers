@@ -30,7 +30,7 @@ fi
 
 ensure_volume() {
     local name=$1
-    podman volume exists "$name" || podman volume create "$name"
+    podman volume exists "$name" || podman volume create --label cypress "$name"
 } >/dev/null
 
 current_dir=$(pwd)
@@ -40,6 +40,7 @@ xcookie="$(copy untrusted)"
 
 ensure_volume cypress-config
 ensure_volume cypress-pki
+ensure_volume cypress-yarn
 cypress_node=cypress-node-"$project_name"
 ensure_volume "$cypress_node"
 
@@ -61,7 +62,8 @@ podman run --name=${NAME} \
             --volume="$current_dir/..":/app \
             --volume=cypress-config:/home/node/.config/Cypress/cy/production \
             --volume=cypress-pki:/home/node/.pki/nssdb \
-            --volume="$cypress_node":/app/node_modules \
+            --volume=cypress-yarn:/home/node/.cache/yarn \
+            --volume="$cypress_node":/app/cypress/node_modules \
             -w "/app/$dir_name" \
             --network host \
             --user="$(id -u):$(id -g)" \
@@ -75,5 +77,5 @@ podman run --name=${NAME} \
             --env "TZ" \
             "${wayland_args[@]}" \
             --init \
-            --entrypoint cypress \
-            "${IMAGE}" "${@}"
+            --entrypoint sh \
+            "${IMAGE}" "-c" 'yarn install && exec cypress "${@}"' -- "${@}"
