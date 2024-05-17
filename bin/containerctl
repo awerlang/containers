@@ -1,0 +1,43 @@
+#!/bin/bash
+set -eu
+
+NAMESPACE=awerlang
+. ../.env
+if [[ -n "$DEBUG" ]]; then
+    set -x
+fi
+
+error() {
+    printf "Error: %s\n" "$1"
+} >&2
+ 
+fail() {
+    error "$1"
+    exit "${2:-1}"
+}
+
+run() {
+    (( "$#" >= 2 )) || fail "usage: containerctl command name [...args]"
+ 
+    local command="$1"
+    shift
+
+    local name="$1"
+    shift
+
+    test -n "$name" || fail "name is required"
+
+    case "$command" in
+        build)
+            container-build "$name" ./context
+            ;;
+        clean)
+            podman image rm "$NAMESPACE/$name"
+            ;;
+        *)
+            fail "unknown command: $command"
+            ;;
+    esac
+}
+
+run "$@"

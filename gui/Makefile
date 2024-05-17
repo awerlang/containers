@@ -1,3 +1,3 @@
-.PHONY: build
-build:
-	container-build gui
+.PHONY: build clean
+build clean:
+	containerctl $@ gui

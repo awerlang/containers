@@ -1,5 +1,7 @@
 #!/bin/bash
 
+(( "$#" >= 1 )) || { echo "Error: usage: container-build image [context] [baseimage]"; exit 1; }
+
 IMAGE=$1
 CONTEXT=${2-.}
 DATE=$(date +%Y%m%d)

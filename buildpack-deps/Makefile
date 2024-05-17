@@ -1,3 +1,3 @@
-.PHONY: build
-build:
-	container-build buildpack-deps
+.PHONY: build clean
+build clean:
+	containerctl $@ buildpack-deps

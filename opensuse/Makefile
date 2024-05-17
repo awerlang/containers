@@ -1,6 +1,7 @@
-.PHONY: build
+.PHONY: build clean
 build: update
-	container-build opensuse
+build clean:
+	containerctl $@ opensuse
 
 .PHONY: update
 update:

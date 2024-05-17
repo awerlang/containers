@@ -1,3 +1,3 @@
-.PHONY: build
-build:
-	container-build browsers ./context
+.PHONY: build clean
+build clean:
+	containerctl $@ browsers
