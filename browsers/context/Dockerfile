@@ -3,6 +3,7 @@ FROM awerlang/gui
 RUN zypper --non-interactive in MozillaFirefox \
     chromium \
     file-roller \
+    fish \
     kitty \
     kupfer \
     leafpad \
