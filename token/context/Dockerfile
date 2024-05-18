@@ -8,9 +8,7 @@ RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers
 
 FROM awerlang/browsers
 
-RUN zypper --non-interactive in \
-        opensc openssl pcsc-ccid pcsc-lite pcsc-tools \
-        polkit-default-privs
+RUN zypper --non-interactive in pcsc-tools
 
 USER user
 
@@ -31,11 +29,6 @@ RUN rpm --import /tmp/RPM-GPG-KEY-SafenetAuthenticationClient && \
 
 ADD https://get.webpkiplugin.com/Downloads/2.16.0/setup-rpm-64 /tmp/webpki-setup-64.rpm
 RUN ln -s /bin/env /bin/sudo && \
-    rpm -hi /tmp/webpki-setup-64.rpm && \
-    {                                                           \
-        echo 'org.debian.pcsc-lite.access_pcsc yes:yes:yes';    \
-        echo 'org.debian.pcsc-lite.access_card yes:yes:yes';    \
-    } >> /etc/polkit-default-privs.local && \
-    set_polkit_default_privs
+    rpm -hi /tmp/webpki-setup-64.rpm
 
 USER user
