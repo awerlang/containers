@@ -2,7 +2,8 @@
 set -eu
 
 NAMESPACE=awerlang
-. ../.env
+path=$(readlink -f $(dirname $0)/..)
+. ${path}/.env
 export DEBUG
 if [[ -n "$DEBUG" ]]; then
     set -x
@@ -35,6 +36,9 @@ run() {
             ;;
         build)
             container-build "$name" ./context
+            ;;
+        install)
+            ln -sf $path/$name/${name}.desktop ~/.local/share/applications/${name}.desktop
             ;;
         create)
             local tag=$(podman image ls --format "{{.Tag}}" "$NAMESPACE/$name" | grep "[0-9]" | sort --reverse | head -n 1)

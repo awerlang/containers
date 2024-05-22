@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=container-start warsaw
+Exec=containerctl start warsaw
 GenericName[en_US]=
 GenericName=
 Icon=homebank

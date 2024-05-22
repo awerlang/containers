@@ -1,7 +1,7 @@
 NAME := warsaw
 
-.PHONY: build name start enter stop remove clean
-build name start enter stop remove clean:
+.PHONY: build name install start enter stop remove clean
+build name install start enter stop remove clean:
 	@containerctl $@ ${NAME}
 
 .PHONY: create

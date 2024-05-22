@@ -1,14 +1,17 @@
 SUBDIRS = azure \
-		  buildpack-deps \
-		  browsers \
-		  gui \
-		  opensuse \
 		  token \
 		  vscode \
 		  warsaw
 
 .PHONY: build $(SUBDIRS)
 build: $(SUBDIRS)
+
+.PHONY: install
+install:
+	$(MAKE) -C azure $@
+	$(MAKE) -C token $@
+	$(MAKE) -C vscode $@
+	$(MAKE) -C warsaw $@
 
 $(SUBDIRS):
 	$(MAKE) -C $@

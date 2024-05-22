@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=container-start token
+Exec=containerctl start token
 GenericName[en_US]=
 GenericName=
 Icon=view-certificate-sign

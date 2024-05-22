@@ -5,8 +5,8 @@ export $(shell sed 's/=.*//' ../.env)
 
 CONFIG_FILE := $(shell find ${WORKSPACE_PATH}/.config/azure/ -name 'krb5-*.conf')
 
-.PHONY: build name start enter stop remove clean
-build name start enter stop remove clean:
+.PHONY: build name install start enter stop remove clean
+build name install start enter stop remove clean:
 	@containerctl $@ ${NAME}
 
 .PHONY: create

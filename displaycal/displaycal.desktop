@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=container-start displaycal
+Exec=containerctl start displaycal
 GenericName[en_US]=
 GenericName=
 Icon=preferences-desktop-display-color

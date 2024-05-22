@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_US]=
 Comment=
-Exec=container-start irpf
+Exec=containerctl start irpf
 GenericName[en_US]=
 GenericName=
 Icon=gnumeric-format-accounting
