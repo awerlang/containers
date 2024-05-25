@@ -52,6 +52,7 @@ podman run --name=${NAME} \
             --cap-add AUDIT_WRITE \
             --cap-add DAC_OVERRIDE \
             --cap-add CHOWN \
+            --cap-add CAP_SYS_CHROOT \
             --security-opt no-new-privileges \
             --shm-size 2g \
             --tmpfs /run \
