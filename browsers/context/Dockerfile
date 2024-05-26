@@ -10,7 +10,8 @@ RUN zypper --non-interactive in MozillaFirefox \
     libpci3 \
     thunar \
     thunar-plugin-archive \
-    util-linux
+    util-linux \
+    xdg-user-dirs
 
 COPY bin /usr/local/bin
 COPY --chown=user kupfer.cfg /home/user/.config/kupfer/

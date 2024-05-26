@@ -1,4 +1,5 @@
 #!/bin/bash --login
 
 . /tmp/.env
+xdg-user-dirs-update
 exec dbus-launch --exit-with-session kupfer
