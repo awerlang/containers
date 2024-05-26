@@ -13,7 +13,8 @@ create:
 		--cap-add DAC_OVERRIDE \
 		--cap-add CHOWN \
 		--env "LANG=pt_BR.UTF-8" \
-		--env "LANGUAGE=pt_BR:en_US:en"
+		--env "LANGUAGE=pt_BR:en_US:en" \
+		--env "LC_ALL=pt_BR.UTF-8"
 
 .PHONY: run
 run:
