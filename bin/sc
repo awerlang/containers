@@ -1,20 +1,21 @@
 #!/bin/bash
 
-VERSION=4.9.2
+VERSION=5.1.0
 IMAGE=sc
 
 build() {
     podman build -t awerlang/${IMAGE}:${VERSION} -f - <<EOF
         FROM awerlang/buildpack-deps as builder
 
-        RUN curl -fsSL -o /tmp/sauce.tar.gz "https://saucelabs.com/downloads/sc-${VERSION}-linux.tar.gz" && \
-            tar xfv /tmp/sauce.tar.gz --directory=/tmp
+        RUN curl -fsSL -o /tmp/sauce.tar.gz "https://saucelabs.com/downloads/sauce-connect/${VERSION}/sauce-connect-${VERSION}_linux.x86_64.tar.gz" && \
+            mkdir /tmp/sauce && \
+            tar xfv /tmp/sauce.tar.gz --directory=/tmp/sauce
 
         FROM awerlang/opensuse
 
-        COPY --from=builder /tmp/sc*/bin/sc /usr/local/bin/sc
+        COPY --from=builder /tmp/sauce /opt/sauce
 
-        ENTRYPOINT [ "/usr/local/bin/sc" ]
+        ENTRYPOINT [ "/opt/sauce/sc" ]
 EOF
 }
 
