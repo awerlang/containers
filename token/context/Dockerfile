@@ -8,7 +8,7 @@ RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers
 
 FROM awerlang/browsers
 
-RUN zypper --non-interactive in pcsc-tools
+RUN zypper --non-interactive in pcsc-tools opensc
 
 USER user
 
