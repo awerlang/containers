@@ -1,0 +1,14 @@
+# Token
+
+
+## Verify token
+
+```
+$ pcsc_scan
+$ pkcs11-tool --module /usr/lib64/libeTPkcs11.so -O
+$ pkcs11-tool --module /usr/lib64/libeTPkcs11.so -t
+```
+
+## References
+
+* https://github.com/OpenSC/OpenSC/issues/461
