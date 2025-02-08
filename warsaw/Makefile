@@ -7,6 +7,8 @@ build name install start enter stop remove clean:
 .PHONY: create
 create:
 	containerctl create ${NAME} \
+		--userns keep-id \
+		--user root \
 		--cap-add SETUID \
 		--cap-add SETGID \
 		--cap-add AUDIT_WRITE \

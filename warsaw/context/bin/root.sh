@@ -1,6 +1,10 @@
 #!/bin/bash
 
-/etc/init.d/warsaw start
+if [ $EUID -gt 0 ]; then  
+    echo "Need to start container as root"
+fi
+
+/etc/init.d/warsaw start || echo "Could not start warsaw (root)"
 
 xdg_runtime_dir=/run/user/$(id -u user)
 mkdir -p "${xdg_runtime_dir}"
