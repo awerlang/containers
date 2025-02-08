@@ -3,6 +3,7 @@ FROM awerlang/opensuse
 RUN zypper --non-interactive in \
         adwaita-icon-theme \
         breeze5-cursors \
+        dbus-1-daemon \
         dbus-1-x11 \
         dejavu-fonts \
         findutils \
@@ -45,5 +46,6 @@ RUN zypper --non-interactive in \
         mozilla-nss \
         noto-coloremoji-fonts \
         patterns-fonts-fonts  \
+        xauth \
         xdg-utils \
         xorg-x11-fonts
