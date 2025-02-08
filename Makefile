@@ -1,4 +1,7 @@
 SUBDIRS = azure \
+		  browsers \
+		  gui \
+		  opensuse \
 		  token \
 		  vscode \
 		  warsaw
