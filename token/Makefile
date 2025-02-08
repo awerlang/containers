@@ -7,6 +7,7 @@ build name install start enter stop remove clean:
 .PHONY: create
 create:
 	containerctl create ${NAME} \
+		--userns=keep-id \
 		--volume=/run/pcscd:/run/pcscd:ro \
 		--env "LANG=pt_BR.UTF-8" \
 		--env "LANGUAGE=pt_BR:en_US:en" \
