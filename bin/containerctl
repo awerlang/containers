@@ -6,7 +6,7 @@ path=$(readlink -f $(dirname $0)/..)
 . ${path}/.env
 export DEBUG
 if [[ -n "$DEBUG" ]]; then
-    set -x
+    set -xv
 fi
 
 error() {

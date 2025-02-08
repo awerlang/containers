@@ -1,5 +1,7 @@
 #!/bin/bash --login
 
+set -euxvo pipefail
+
 . /tmp/.env
 xdg-user-dirs-update
 exec dbus-launch --exit-with-session kupfer

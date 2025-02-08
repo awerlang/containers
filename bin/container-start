@@ -2,7 +2,7 @@
 set -eu
 
 if [[ -n "$DEBUG" ]]; then
-    set -x
+    set -xv
 fi
 
 (( "$#" >= 1 )) && [[ -n "$1" ]] || { echo "Error: usage: container-start container"; exit 1; }

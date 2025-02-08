@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+if [[ -n "$DEBUG" ]]; then
+    set -xv
+fi
+
 TARGET_XAUTHORITY=/tmp/.Xauthority
 
 copy_xauth() {
