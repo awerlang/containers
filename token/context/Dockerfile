@@ -8,7 +8,7 @@ RUN curl -fsSL -o /tmp/safenet.zip https://www.globalsign.com/en/safenet-drivers
 
 FROM awerlang/browsers
 
-RUN zypper --non-interactive in pcsc-tools opensc
+RUN zypper --non-interactive in pcsc-tools opensc libgthread-2_0-0
 
 USER user
 
