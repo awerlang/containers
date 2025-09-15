@@ -10,18 +10,6 @@ FROM awerlang/browsers
 
 RUN zypper --non-interactive in pcsc-tools opensc libgthread-2_0-0
 
-USER user
-
-ENV FIREFOX_PROFILE=default-release
-RUN firefox -headless -no-remote -CreateProfile ${FIREFOX_PROFILE}
-RUN find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE} && \
-{                                               \
-    echo 'library=/usr/lib64/libeTPkcs11.so';   \
-    echo 'name=SafeNet eToken';                 \
-} >> $(find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE})/pkcs11.txt
-
-USER root
-
 COPY --from=builder /tmp /tmp
 RUN rpm --import /tmp/RPM-GPG-KEY-SafenetAuthenticationClient && \
     rpm -hi --nodeps /tmp/safenet/SafenetAuthenticationClient-10.8.1050-1.el9.x86_64.rpm && \
@@ -32,3 +20,12 @@ RUN ln -s /bin/env /bin/sudo && \
     rpm -hi /tmp/webpki-setup-64.rpm
 
 USER user
+
+ENV FIREFOX_PROFILE=default-release
+RUN firefox -headless -no-remote -CreateProfile ${FIREFOX_PROFILE}
+RUN find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE} && \
+    {                                               \
+    echo 'library=/usr/lib64/libeTPkcs11.so';   \
+    echo 'name=SafeNet eToken';                 \
+    } >> $(find ${HOME}/.mozilla/firefox -name *.${FIREFOX_PROFILE})/pkcs11.txt && \
+    sed -i 's/^StartWithLastProfile=1$/StartWithLastProfile=0/' ~/.mozilla/firefox/profiles.ini
