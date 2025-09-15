@@ -24,8 +24,16 @@ copy_env() {
     local name=$1
     tmp1=$(mktemp)
 
-    printf "export DISPLAY=%s\n" "$DISPLAY" > "${tmp1}"
-    printf "export XAUTHORITY=%s\n" "$TARGET_XAUTHORITY" >> "${tmp1}"
+    # # X11
+    # printf "export DISPLAY=%s\n" "$DISPLAY" >> "${tmp1}"
+    # printf "export XAUTHORITY=%s\n" "$TARGET_XAUTHORITY" >> "${tmp1}"
+
+    # Wayland
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        printf "export WAYLAND_DISPLAY=%s\n" "/tmp/wayland-socket" >> "${tmp1}"
+        printf "export XDG_RUNTIME_DIR=%s\n" "$XDG_RUNTIME_DIR" >> "${tmp1}"
+        printf "export XDG_SESSION_TYPE=%s\n" "$XDG_SESSION_TYPE" >> "${tmp1}"
+    fi
 
     chmod +r "${tmp1}"
     podman cp "${tmp1}" "$name":/tmp/.env
