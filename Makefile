@@ -1,5 +1,6 @@
 SUBDIRS = azure \
 		  browsers \
+		  buildpack-deps \
 		  gui \
 		  opensuse \
 		  token \
