@@ -6,8 +6,8 @@ RUN zypper --non-interactive in MozillaFirefox \
     fish \
     kitty \
     kupfer \
-    leafpad \
     libpci3 \
+    mousepad \
     thunar \
     thunar-plugin-archive \
     util-linux \
