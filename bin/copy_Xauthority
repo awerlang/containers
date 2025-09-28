@@ -24,9 +24,9 @@ copy_env() {
     local name=$1
     tmp1=$(mktemp)
 
-    # # X11
-    # printf "export DISPLAY=%s\n" "$DISPLAY" >> "${tmp1}"
-    # printf "export XAUTHORITY=%s\n" "$TARGET_XAUTHORITY" >> "${tmp1}"
+    # X11
+    printf "export DISPLAY=%s\n" "$DISPLAY" >> "${tmp1}"
+    printf "export XAUTHORITY=%s\n" "$TARGET_XAUTHORITY" >> "${tmp1}"
 
     # Wayland
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then

@@ -15,5 +15,5 @@ create:
 
 .PHONY: run
 run:
-	@copy_Xauthority trusted ${NAME}
+	@copy_Xauthority untrusted ${NAME}
 	podman cp ~/.config/git ${NAME}:/home/user/.config/

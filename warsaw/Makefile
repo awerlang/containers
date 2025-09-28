@@ -20,4 +20,4 @@ create:
 
 .PHONY: run
 run:
-	@copy_Xauthority trusted ${NAME}
+	@copy_Xauthority untrusted ${NAME}

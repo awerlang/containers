@@ -12,6 +12,7 @@ RUN zypper --non-interactive in \
         gtk2-metatheme-adwaita \
         gtk2-tools \
         gtk3-metatheme-adwaita \
+        hostname \
         intel-media-driver \
         libasound2 \
         libatk-1_0-0 \
