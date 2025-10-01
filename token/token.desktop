@@ -5,6 +5,7 @@ Exec=containerctl start token
 GenericName[en_US]=
 GenericName=
 Icon=view-certificate-sign
+Categories=Network;WebBrowser;
 MimeType=
 Name[en_US]=Smart Token
 Name=Smart Token

@@ -5,6 +5,7 @@ Exec=containerctl start azure
 GenericName[en_US]=
 GenericName=
 Icon=server-database
+Categories=Development;IDE;
 MimeType=
 Name[en_US]=Azure Data Studio
 Name=Azure Data Studio
