@@ -50,9 +50,6 @@ podman run --name=${NAME} \
             --rm \
             --security-opt no-new-privileges \
             --shm-size 2g \
-            --tmpfs /run \
-            --volume=/etc/localtime:/etc/localtime:ro \
-            --volume=/etc/machine-id:/etc/machine-id:ro \
             --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
             --volume="$xcookie":/tmp/.Xauthority \
             --volume="$current_dir/..":/app \
