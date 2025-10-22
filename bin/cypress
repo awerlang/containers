@@ -18,9 +18,11 @@ copy() {
 
 declare -a wayland_args
 
+homedir=/root
+
 if [ -n "${WAYLAND_DISPLAY:-}" ]; then
     wayland_args=(
-        --volume="${HOME}/.config/electron25-flags.conf:/home/node/.config/electron25-flags.conf"
+        --volume="${HOME}/.config/electron25-flags.conf:${homedir}/.config/electron25-flags.conf"
         --volume="${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-}:/tmp/${WAYLAND_DISPLAY:-}"
         --env "WAYLAND_DISPLAY"
         --env "XDG_SESSION_TYPE=wayland"
@@ -46,13 +48,6 @@ ensure_volume "$cypress_node"
 
 podman run --name=${NAME} \
             --rm \
-            --cap-drop ALL \
-            --cap-add SETUID \
-            --cap-add SETGID \
-            --cap-add AUDIT_WRITE \
-            --cap-add DAC_OVERRIDE \
-            --cap-add CHOWN \
-            --cap-add CAP_SYS_CHROOT \
             --security-opt no-new-privileges \
             --shm-size 2g \
             --tmpfs /run \
@@ -61,15 +56,12 @@ podman run --name=${NAME} \
             --volume=/tmp/.X11-unix:/tmp/.X11-unix:ro \
             --volume="$xcookie":/tmp/.Xauthority \
             --volume="$current_dir/..":/app \
-            --volume=cypress-config:/home/node/.config/Cypress/cy/production \
-            --volume=cypress-pki:/home/node/.pki/nssdb \
-            --volume=cypress-yarn:/home/node/.cache/yarn \
+            --volume=cypress-config:${homedir}/.config/Cypress/cy/production \
+            --volume=cypress-pki:${homedir}/.pki/nssdb \
+            --volume=cypress-yarn:${homedir}/.cache/yarn \
             --volume="$cypress_node":/app/cypress/node_modules \
             -w "/app/$dir_name" \
             --network host \
-            --user="$(id -u):$(id -g)" \
-            --userns=keep-id \
-            --env "HOME=/home/node" \
             --env "DISPLAY=${DISPLAY}" \
             --env "XAUTHORITY=/tmp/.Xauthority" \
             --env "LANG=en_US.UTF-8" \
