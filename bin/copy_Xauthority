@@ -33,6 +33,7 @@ copy_env() {
         printf "export WAYLAND_DISPLAY=%s\n" "/tmp/wayland-socket" >> "${tmp1}"
         printf "export XDG_RUNTIME_DIR=%s\n" "$XDG_RUNTIME_DIR" >> "${tmp1}"
         printf "export XDG_SESSION_TYPE=%s\n" "$XDG_SESSION_TYPE" >> "${tmp1}"
+        printf "export ELECTRON_OZONE_PLATFORM_HINT=%s\n" "wayland" >> "${tmp1}"
     fi
 
     chmod +r "${tmp1}"
