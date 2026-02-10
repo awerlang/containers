@@ -2,6 +2,9 @@
 
 set -euxvo pipefail
 
+export APPIMAGE_EXTRACT_AND_RUN=1
+export NO_CLEANUP=1
+
 . /tmp/.env
 xdg-user-dirs-update
 exec dbus-run-session -- kupfer

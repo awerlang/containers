@@ -24,6 +24,9 @@ copy_env() {
     local name=$1
     tmp1=$(mktemp)
 
+    printf "export APPIMAGE_EXTRACT_AND_RUN=%s\n" "1" >> "${tmp1}"
+    printf "export NO_CLEANUP=%s\n" "1" >> "${tmp1}"
+
     # X11
     printf "export DISPLAY=%s\n" "$DISPLAY" >> "${tmp1}"
     printf "export XAUTHORITY=%s\n" "$TARGET_XAUTHORITY" >> "${tmp1}"
