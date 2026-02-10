@@ -4,7 +4,6 @@ RUN zypper --non-interactive in \
         adwaita-icon-theme \
         breeze5-cursors \
         dbus-1-daemon \
-        dbus-1-x11 \
         dejavu-fonts \
         findutils \
         fonts-config \
